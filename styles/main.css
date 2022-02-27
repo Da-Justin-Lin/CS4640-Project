@@ -54,6 +54,7 @@ nav {
     padding: 22px;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 nav a {
     color:#ffffff;

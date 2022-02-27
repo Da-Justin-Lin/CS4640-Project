@@ -1,0 +1,36 @@
+div.searchplace {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+label {
+    font-size: 18pt;
+}
+
+#recipename {
+    margin-top: 2px;
+    width: 50%;
+}
+
+#recipeingredients {
+    margin-top: 2px;
+    width: 50%;
+}
+
+br {
+    content: "";
+    margin: 2em;
+    display: block;
+    font-size: 10%;
+  }
+
+button {
+    margin-left: 340px;
+}
+
+table {
+    width: 100%;
+}
+
+hr {
+    width: 98%;
+}
