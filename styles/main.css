@@ -54,45 +54,10 @@ nav {
     padding: 22px;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 10px;
 }
 nav a {
     color:#ffffff;
     font-weight: bold;
     text-decoration: none;
 }
-
-ol, ul {
-	list-style: none;
-}
-.upper{
-    padding: 80px;
-    text-align: center;
-    font-size:xx-large;
-    background-color: rgb(181,237,207);
-}
-
-p{
-    text-align: center;
-    margin-top: 60px;
-    font: bold;
-    font-size: 50px; 
-}
-
-.lower{
-    text-align: center;
-    font-size: x-large;
-}
-
-.lower a{
-    text-decoration: none;
-    font-size: 40px;
-    color:white;
-    background-color: rgb(181,237,207);
-    padding-left:60px;
-    padding-right:60px;
-    padding-top:30px;
-    padding-bottom:30px;
-    border-radius: 10%;
-    margin-top: 50px;
-}
-
