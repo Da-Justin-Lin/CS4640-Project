@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>Recipick</title>
+        <meta name="author" content="Sky Chen/Da Lin">
+        <meta name="description" content="A place to find recipes that work for you.">
+        <meta name="keywords" content="food">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/newupload.css">
+    </head> 
+    <body>
+        <header>
+            <nav>
+                <a href="home.html">Recipick</a>
+                <a href="search.html">Search</a>
+                <a href="savedrecipes.html">Saved Recipes</a>
+                <a href="myrecipes.html">My Recipes</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+        </header>
+
+        <label for="RecipeName" style = "font-size: 30px">Recipe Name:</label>
+        <input type="text" id="RecipeName" name="RecipeName">
+        <label for="estimatedtime" style = "font-size: 20px; margin-left: 50px;">Estimated time:</label>
+        <input type="text" id="estimatedtime" name="estimatedtime">
+        <br>
+
+        <label for="Ingredients" style = "font-size: 30px">Ingredients:</label>
+        <br>
+        <textarea name="Text1" cols="80" rows="6"></textarea>
+        <br>
+
+        <label for="Instructions" style = "font-size: 30px">Instructions:</label>
+        <br>
+        <textarea name="Instructions" cols="80" rows="10"></textarea>
+        <br>
+
+        <button type="upload" style="margin-left: 10px;">
+            <a href="home.html" style = "text-decoration: None;">Upload Image</a>
+        </button>
+
+        <button type="upload" style="margin-left: 10px;">
+            <a href="home.html" style = "text-decoration: None;">Submit</a>
+        </button>
+    </body>
+</html>
