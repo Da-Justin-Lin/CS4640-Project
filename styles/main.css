@@ -67,7 +67,12 @@ nav a {
 
 nav a:hover{
     background-color: chartreuse;
-    transition: 0.8ss;
+    transition: 0.8s;	
+}
+
+nav a:active{
+    color: chartreuse;	
+	transition: 0.2s;	
 }
 
 ol, ul {
