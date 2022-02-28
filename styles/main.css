@@ -62,6 +62,11 @@ nav a {
     text-decoration: none;
 }
 
+nav a:hover{
+    background-color: chartreuse;
+    transition: 0.8ss;
+}
+
 ol, ul {
 	list-style: none;
 }
