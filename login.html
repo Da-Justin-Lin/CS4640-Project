@@ -27,7 +27,7 @@
                         Login
                     </h1>
                     <br>
-                    <label for="Email" style = "font-size: 30px">E-mail:</label>
+                    <label for="Email" style = "font-size: 30px" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">E-mail:</label>
                     <input type="text" id="Email" name="Email">
                     <br>
                     <label for="Password" style = "font-size: 30px">Password:</label>
@@ -44,11 +44,11 @@
                     <label for="Username" style = "font-size: 30px">Username:</label>
                     <input type="text" id="Username" name="Username">
                     <br>
-                    <label for="Email" style = "font-size: 30px">E-mail:</label>
+                    <label for="Email" style = "font-size: 30px" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">E-mail:</label>
                     <input type="text" id="Email" name="Email">
                     <br>
                     <label for="Password" style = "font-size: 30px">Password:</label>
-                    <input type="text" id="password" name="password">
+                    <input type="text" id="password" name="password" pattern=".{8,}">
                     <br>
                     <label for="confirm_Password" style = "font-size: 30px">Confirm Password:</label>
                     <input type="text" id="confirm_Password" name="confirm_Password">
