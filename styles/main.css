@@ -79,3 +79,8 @@ ol, ul {
 	list-style: none;
 }
 
+button{
+    font-size: x-large;
+    background-color: rgb(81, 238, 154);
+    color:black;
+}

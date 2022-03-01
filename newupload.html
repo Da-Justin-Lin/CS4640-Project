@@ -28,22 +28,23 @@
         <input type="text" id="estimatedtime" name="estimatedtime">
         <br>
 
-        <label for="Ingredients" style = "font-size: 30px; margin-left:20px;">Ingredients:</label>
+        <label for="Text1" style = "font-size: 30px; margin-left:20px;">Ingredients:</label>
         <br>
-        <textarea name="Text1" cols="80" rows="6"></textarea>
+        <textarea name="Text1" id="Text1" cols="80" rows="6"></textarea>
         <br>
 
         <label for="Instructions" style = "font-size: 30px; margin-left:20px;">Instructions:</label>
         <br>
-        <textarea name="Instructions" cols="80" rows="10"></textarea>
+        <textarea name="Instructions" id="Instructions" cols="80" rows="10"></textarea>
         <br>
+        
+        <label for="photo" style = "font-size: 30px; margin-left:20px;">Upload Image:</label>
+        <input type="file"
+            id="photo" name="photo"
+            accept="image/*">
 
-        <button type="upload" style="margin-left: 20px;">
-            <a href="myrecipes.html" style = "text-decoration: None;">Upload Image</a>
-        </button>
-
-        <button type="upload" style="margin-left: 20px;">
-            <a href="myrecipes.html" style = "text-decoration: None;">Submit</a>
+        <button onclick = "location='myrecipes.html'" style="margin-left: 130px;">
+            Submit
         </button>
     </body>
 </html>
