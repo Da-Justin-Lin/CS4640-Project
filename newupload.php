@@ -26,12 +26,21 @@
            <div class="row col-xs-12">
                 <pre>
                     <?php
-                        // Look at the POST array
-                        print_r($_POST);
-                        // More information about the POST variable
-                        var_dump($_POST);
+                        echo "<br>";
+                        echo "Recipe Name: ".$_POST["RecipeName"];
+                        echo "<br>";
+                        echo "Estimated time: ".$_POST["EstimatedTime"];
+                        echo "<br>";
+                        echo "Ingredients: ".$_POST["Ingredients"];
+                        echo "<br>";
+                        echo "Instructions: ".$_POST["Instructions"];
                     ?>
                 </pre>
+
+                <button onclick = "location='myrecipes.html'" style="margin-left: 130px;">
+                    Back
+                </button>
+                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
