@@ -12,7 +12,7 @@
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Wordle Extreme Game</h1>
-                <h3>Hello <?=$user["name"]?>! Score: <?=$user["score"]?></h3>
+                <h3>Hello <?=$user["name"]?>! Guesses: <?=$user["guesses"]?></h3>
             </div>
             <div class="row">
                 <div class="col-xs-8 mx-auto">

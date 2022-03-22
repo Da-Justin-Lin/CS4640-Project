@@ -35,7 +35,7 @@ class wordleController {
         if (isset($_POST["email"]) && !empty($_POST["email"])) { /// validate the email coming in
             setcookie("name", $_POST["name"], time() + 3600);
             setcookie("email", $_POST["email"], time() + 3600);
-            setcookie("score", 0, time() + 3600);
+            setcookie("guesses", 0, time() + 3600);
             header("Location: ?command=question");
             return;
         }
@@ -46,7 +46,7 @@ class wordleController {
     // Load a question from the API
     private function loadQuestion() {
         $triviaData = json_decode(
-            file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
+            file_get_contents("http://www.cs.virginia.edu/~jh2jf/courses/cs4640/spring2022/wordlist.txt")
             , true);
         // Return the question
         return $triviaData["results"][0];
@@ -69,17 +69,16 @@ class wordleController {
 
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
+            // Update the score
+            $user["guesses"] += 1;  
+            // Update the cookie: won't be available until next page load (stored on client)
+            setcookie("guesses", $_COOKIE["guesses"] + 1, time() + 3600);
             $answer = $_POST["answer"];
             
             if ($_COOKIE["answer"] == $answer) {
                 // user answered correctly -- perhaps we should also be better about how we
                 // verify their answers, perhaps use strtolower() to compare lower case only.
                 $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>";
-
-                // Update the score
-                $user["score"] += 10;  
-                // Update the cookie: won't be available until next page load (stored on client)
-                setcookie("score", $_COOKIE["score"] + 10, time() + 3600);
             } else { 
                 $message = "<div class='alert alert-danger'><b>$answer</b> was incorrect! The answer was: {$_COOKIE["answer"]}</div>";
             }
