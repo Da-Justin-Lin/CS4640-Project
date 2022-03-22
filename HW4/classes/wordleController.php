@@ -26,7 +26,7 @@ class wordleController {
         setcookie("correct", "", time() - 3600);
         setcookie("name", "", time() - 3600);
         setcookie("email", "", time() - 3600);
-        setcookie("score", "", time() - 3600);
+        setcookie("guesses", "", time() - 3600);
     }
     
 
@@ -58,7 +58,7 @@ class wordleController {
         $user = [
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
-            "score" => $_COOKIE["score"]
+            "guesses" => $_COOKIE["guesses"]
         ];
 
         // load the question
@@ -69,13 +69,13 @@ class wordleController {
 
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
-            // Update the score
+            // Update the guesses
             $user["guesses"] += 1;  
             // Update the cookie: won't be available until next page load (stored on client)
             setcookie("guesses", $_COOKIE["guesses"] + 1, time() + 3600);
             $answer = $_POST["answer"];
             
-            if ($_COOKIE["answer"] == $answer) {
+            if ($_COOKIE["answer"] == $question) {
                 // user answered correctly -- perhaps we should also be better about how we
                 // verify their answers, perhaps use strtolower() to compare lower case only.
                 $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>";

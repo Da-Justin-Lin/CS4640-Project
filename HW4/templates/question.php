@@ -18,7 +18,7 @@
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=question" method="post">
                     <div class="h-100 p-5 bg-light border rounded-3">
-                    <h2>Question</h2>
+                    <h2>Previous Guesses</h2>
                     <p><?=$question["question"]?></p>
                     <input type="hidden" name="questionid" value="<?=$question["id"]?>"/>
                     </div>
