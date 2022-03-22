@@ -19,5 +19,5 @@ if (!isset($_COOKIE["email"])) {
 }
 
 // Instantiate the controller and run
-$trivia = new TriviaController($command);
+$trivia = new wordleController($command);
 $trivia->run();
