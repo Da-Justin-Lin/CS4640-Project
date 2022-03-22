@@ -68,6 +68,13 @@ class wordleController {
 
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
+<<<<<<< HEAD
+=======
+            // Update the guesses
+            $user["guesses"] += 1;  
+            // Update the cookie: won't be available until next page load (stored on client)
+            setcookie("guesses", $_COOKIE["guesses"] + 1, time() + 3600);
+>>>>>>> 72dcbdbf2da0b1560bdd22ce7d66828b90bca8d1
             $answer = $_POST["answer"];
             
             if ($_COOKIE["answer"] == $question) {
