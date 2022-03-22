@@ -26,7 +26,7 @@ class wordleController {
         setcookie("correct", "", time() - 3600);
         setcookie("name", "", time() - 3600);
         setcookie("email", "", time() - 3600);
-        setcookie("score", "", time() - 3600);
+        setcookie("guesses", "", time() - 3600);
     }
     
 
@@ -45,11 +45,10 @@ class wordleController {
 
     // Load a question from the API
     private function loadQuestion() {
-        $triviaData = json_decode(
-            file_get_contents("http://www.cs.virginia.edu/~jh2jf/courses/cs4640/spring2022/wordlist.txt")
-            , true);
+        $triviaData = file_get_contents('https://www.cs.virginia.edu/~jh2jf/courses/cs4640/spring2022/wordlist.txt');
         // Return the question
-        return $triviaData["results"][0];
+        $words = explode("\n",$triviaData);
+        return $words[array_rand($words)];
     }
 
     // Display the question template (and handle question logic)
@@ -58,7 +57,7 @@ class wordleController {
         $user = [
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
-            "score" => $_COOKIE["score"]
+            "guesses" => $_COOKIE["guesses"]
         ];
 
         // load the question
@@ -69,16 +68,17 @@ class wordleController {
 
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
-            // Update the score
-            $user["guesses"] += 1;  
-            // Update the cookie: won't be available until next page load (stored on client)
-            setcookie("guesses", $_COOKIE["guesses"] + 1, time() + 3600);
             $answer = $_POST["answer"];
             
-            if ($_COOKIE["answer"] == $answer) {
+            if ($_COOKIE["answer"] == $question) {
                 // user answered correctly -- perhaps we should also be better about how we
                 // verify their answers, perhaps use strtolower() to compare lower case only.
                 $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>";
+
+                // Update the guesses
+                $user["guesses"] += 10;  
+                // Update the cookie: won't be available until next page load (stored on client)
+                setcookie("guesses", $_COOKIE["guesses"] + 10, time() + 3600);
             } else { 
                 $message = "<div class='alert alert-danger'><b>$answer</b> was incorrect! The answer was: {$_COOKIE["answer"]}</div>";
             }
@@ -86,7 +86,7 @@ class wordleController {
         }
 
         // update the question information in cookies
-        setcookie("answer", $question["correct_answer"], time() + 3600);
+        setcookie("answer", $question, time() + 3600);
 
         include("templates/question.php");
     }
