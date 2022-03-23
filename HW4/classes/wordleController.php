@@ -89,4 +89,48 @@ class wordleController {
 
         include("templates/question.php");
     }
+    private function charInTarget($target, $guess) {
+        $targetChar = array();
+        $ans = 0;
+        foreach ($target as $t) {
+            $targetChar = $t;
+        }
+        foreach ($guess as $g) {
+            if(in_array($g, $targetChar)) {
+                $ans++;
+            }
+        }
+        return $ans." of the characters are correct.";
+    }
+
+    private function charInCorrect($target, $guess) {
+        $targetChar = array();
+        $guessChar = array();
+        $ans = 0;
+        foreach ($target as $t) {
+            $targetChar = $t;
+        }
+        foreach ($guess as $g) {
+            $guessCHar = $g;
+        }
+        $length = count($targetChar);
+        for ($x = 0; $x <= $length; $x++) {
+            if($targetChar[$x] == $guessChar[$x]) {
+                $ans++;
+            }
+        }
+        return $ans." of the characters are in the correct place.";
+    }
+
+    private function lenComp($target, $guess) {
+        if(strlen($target) > strlen($guess)) {
+            return "Your guess is too short.";
+        }  
+        else if (strlen($target) > strlen($guess)) {
+            return "Your guess is too long.";
+        }
+        else {
+            return "Your guess is the correct length";
+        }
+    }
 }
