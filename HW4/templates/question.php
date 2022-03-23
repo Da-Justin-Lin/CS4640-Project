@@ -18,9 +18,8 @@
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=question" method="post">
                     <div class="h-100 p-5 bg-light border rounded-3">
-                    <h2>Previous number of guesses</h2>
-                    </div>
                     <?=$message?>
+                    </div>
                     <div class="h-10 p-5 mb-3">
                         <input type="text" class="form-control" id="answer" name="answer" placeholder="Type your answer here">
                     </div>

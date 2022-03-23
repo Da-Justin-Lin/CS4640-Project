@@ -28,6 +28,7 @@ class wordleController {
         setcookie("email", "", time() - 3600);
         setcookie("num_guess", "", time() - 3600);
         setcookie("word", "", time() - 3600);
+        setcookie("guess", "", time() + 3600);
     }
     
 
@@ -39,6 +40,7 @@ class wordleController {
             setcookie("num_guess", 0, time() + 3600);
             $word = $this->loadQuestion();
             setcookie("word", $word, time() + 3600);
+            setcookie("guess", " ", time() + 3600);
             header("Location: ?command=question");
             return;
         }
@@ -61,7 +63,8 @@ class wordleController {
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
             "num_guess" => $_COOKIE["num_guess"],
-            "word" => $_COOKIE["word"]
+            "word" => $_COOKIE["word"],
+            "guess" => $_COOKIE["guess"],
         ];
 
         // if the user submitted an answer, check it
@@ -79,10 +82,14 @@ class wordleController {
                 // Update the cookie: won't be available until next page load (stored on client)
                 $word = $this->loadQuestion();
                 setcookie("word", $word, time() + 3600);
-            } else { 
-                $message = "<div class='alert alert-danger'>{$_POST["answer"]} was incorrect! The answer was: {$_COOKIE["word"]}</div>";
+            } else {     
+                $guess = nl2br($_COOKIE["guess"] . "Guess: " . $_POST["answer"] . " is incorrect.\n");
+                setcookie("guess", $guess, time()+3600);
+                $message = $guess;
             }
             setcookie("correct", "", time() - 3600);
+        }else{
+            $message = "Pleas take a guess";
         }
 
         // update the question information in cookies
