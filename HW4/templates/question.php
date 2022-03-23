@@ -12,20 +12,13 @@
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Wordle Extreme Game</h1>
-                <h3>Hello <?=$user["name"]?>! Guesses: <?=$user["guesses"]?></h3>
+                <h3>Hello <?=$user["name"]?>! Number of guesses: <?=$user["num_guess"]?></h3>
             </div>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=question" method="post">
                     <div class="h-100 p-5 bg-light border rounded-3">
-<<<<<<< HEAD
-                    <h2>Question</h2>
-                    <p><?=$question?></p>
-=======
-                    <h2>Previous Guesses</h2>
-                    <p><?=$question["question"]?></p>
->>>>>>> 72dcbdbf2da0b1560bdd22ce7d66828b90bca8d1
-                    <input type="hidden" name="questionid" value="<?=$question["id"]?>"/>
+                    <h2>Previous number of guesses</h2>
                     </div>
                     <?=$message?>
                     <div class="h-10 p-5 mb-3">

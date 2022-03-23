@@ -26,7 +26,8 @@ class wordleController {
         setcookie("correct", "", time() - 3600);
         setcookie("name", "", time() - 3600);
         setcookie("email", "", time() - 3600);
-        setcookie("guesses", "", time() - 3600);
+        setcookie("num_guess", "", time() - 3600);
+        setcookie("word", "", time() - 3600);
     }
     
 
@@ -35,7 +36,9 @@ class wordleController {
         if (isset($_POST["email"]) && !empty($_POST["email"])) { /// validate the email coming in
             setcookie("name", $_POST["name"], time() + 3600);
             setcookie("email", $_POST["email"], time() + 3600);
-            setcookie("guesses", 0, time() + 3600);
+            setcookie("num_guess", 0, time() + 3600);
+            $word = $this->loadQuestion();
+            setcookie("word", $word, time() + 3600);
             header("Location: ?command=question");
             return;
         }
@@ -57,43 +60,32 @@ class wordleController {
         $user = [
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
-            "guesses" => $_COOKIE["guesses"]
+            "num_guess" => $_COOKIE["num_guess"],
+            "word" => $_COOKIE["word"]
         ];
-
-        // load the question
-        $question = $this->loadQuestion();
-        if ($question == null) {
-            die("No questions available");
-        }
 
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
-<<<<<<< HEAD
-=======
-            // Update the guesses
-            $user["guesses"] += 1;  
+            // Update the num_guess
+            $user["num_guess"] += 1;  
             // Update the cookie: won't be available until next page load (stored on client)
-            setcookie("guesses", $_COOKIE["guesses"] + 1, time() + 3600);
->>>>>>> 72dcbdbf2da0b1560bdd22ce7d66828b90bca8d1
-            $answer = $_POST["answer"];
+            setcookie("num_guess", $_COOKIE["num_guess"] + 1, time() + 3600);
             
-            if ($_COOKIE["answer"] == $question) {
+            if ($_POST["answer"] == $_COOKIE["word"]) {
+                $answer = $_POST["answer"];
                 // user answered correctly -- perhaps we should also be better about how we
                 // verify their answers, perhaps use strtolower() to compare lower case only.
-                $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>";
-
-                // Update the guesses
-                $user["guesses"] += 10;  
+                $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>"; 
                 // Update the cookie: won't be available until next page load (stored on client)
-                setcookie("guesses", $_COOKIE["guesses"] + 10, time() + 3600);
+                $word = $this->loadQuestion();
+                setcookie("word", $word, time() + 3600);
             } else { 
-                $message = "<div class='alert alert-danger'><b>$answer</b> was incorrect! The answer was: {$_COOKIE["answer"]}</div>";
+                $message = "<div class='alert alert-danger'>{$_POST["answer"]} was incorrect! The answer was: {$_COOKIE["word"]}</div>";
             }
             setcookie("correct", "", time() - 3600);
         }
 
         // update the question information in cookies
-        setcookie("answer", $question, time() + 3600);
 
         include("templates/question.php");
     }
