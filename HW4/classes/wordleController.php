@@ -32,12 +32,14 @@ class wordleController {
         setcookie("num_guess", "", time() - 3600);
         setcookie("word", "", time() - 3600);
         setcookie("guess", "", time() + 3600);
+        session_destroy();
         header("Location: ?command=login");
     }
     
 
     // Display the login page (and handle login logic)
     public function login() {
+        session_start();
         if (isset($_POST["email"]) && !empty($_POST["email"])) { /// validate the email coming in
             setcookie("name", $_POST["name"], time() + 3600);
             setcookie("email", $_POST["email"], time() + 3600);
@@ -63,7 +65,7 @@ class wordleController {
     // Display the question template (and handle question logic)
     public function question() {
         // set user information for the page from the cookie
-        $user = [
+        $_SESSION = [
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
             "num_guess" => $_COOKIE["num_guess"],
@@ -74,7 +76,7 @@ class wordleController {
         // if the user submitted an answer, check it
         if (isset($_POST["answer"])) {
             // Update the num_guess
-            $user["num_guess"] += 1;  
+            $_SESSION["num_guess"] += 1;  
             // Update the cookie: won't be available until next page load (stored on client)
             setcookie("num_guess", $_COOKIE["num_guess"] + 1, time() + 3600);
             
