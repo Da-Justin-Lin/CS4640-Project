@@ -12,18 +12,14 @@
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Wordle Extreme Game</h1>
-                <h3>Hello <?=$user["name"]?>! Number of guesses: <?=$user["num_guess"]?></h3>
+                <h3>Hello <?=$name?>! Number of guesses: <?=$num?></h3>
+                <h3>The correct word is <?=$right?></h3>
             </div>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
-                <form action="?command=question" method="post">
-                    <div class="h-100 p-5 bg-light border rounded-3">
-                    <?=$message?>
-                    </div>
-                    <div class="h-10 p-5 mb-3">
-                    </div>
+                <form action="?command=gameover" method="post">
                     <div class="text-center">                
-                    <button type="submit" class="btn btn-primary">Play Again</button>
+                    <a href="?command=question" class="btn btn-primary">Play Again</a>
                     <a href="?command=logout" class="btn btn-danger">Log out</a>
                     </div>
                 </form>

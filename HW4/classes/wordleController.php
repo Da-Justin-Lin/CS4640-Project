@@ -14,6 +14,9 @@ class wordleController {
                 break;
             case "logout":
                 $this->destroyCookies();
+            case "gameover":
+                $this->gameover();
+                break;
             case "login":
             default:
                 $this->login();
@@ -29,6 +32,7 @@ class wordleController {
         setcookie("num_guess", "", time() - 3600);
         setcookie("word", "", time() - 3600);
         setcookie("guess", "", time() + 3600);
+        header("Location: ?command=login");
     }
     
 
@@ -80,11 +84,10 @@ class wordleController {
                 // // verify their answers, perhaps use strtolower() to compare lower case only.
                 // $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>"; 
                 // Update the cookie: won't be available until next page load (stored on client)
-                $word = $this->loadQuestion();
-                setcookie("word", $word, time() + 3600);
+                //setcookie("word", $word, time() + 3600);
                 header("Location: ?command=gameover");
             } else {     
-                $guess = nl2br($_COOKIE["guess"] . "Guess: " . $_POST["answer"] . " is incorrect." . 
+                $guess = nl2br($_COOKIE["guess"] . "Guess: " . $_POST["answer"] . " is incorrect. " . 
                 $this->charInTarget($_COOKIE["word"],$_POST["answer"]) . $this->charInCorrect($_COOKIE["word"],$_POST["answer"])
              . $this->lenComp($_COOKIE["word"],$_POST["answer"]) ."\n");
                 setcookie("guess", $guess, time()+3600);
@@ -99,7 +102,20 @@ class wordleController {
 
         include("templates/question.php");
     }
+
+    public function gameover(){
+        $name = $_COOKIE["name"];
+        $num = $_COOKIE["num_guess"];
+        $right = $_COOKIE["word"];
+        $word = $this->loadQuestion();
+        setcookie("num_guess", 0, time() + 3600);
+        setcookie("guess", " ", time() + 3600);
+        setcookie("word", $word, time() + 3600);
+        include("templates/gameover.php");
+    }
+
     private function charInTarget($target, $guess) {
+        $guess = strtolower($guess);
         $targetChar = array();
         $ans = 0;
         for ($x = 0; $x < strlen($target); $x++) {
@@ -107,13 +123,16 @@ class wordleController {
         }
         for ($x = 0; $x < strlen($guess); $x++) {
             if(in_array($guess[$x], $targetChar)) {
+                $index = array_search($guess[$x], $targetChar);
+                unset($targetChar[$index]);
                 $ans++;
             }
         }
-        return $ans." of the characters are correct.";
+        return $ans." of the characters are correct. ";
     }
 
     private function charInCorrect($target, $guess) {
+        $guess = strtolower($guess);
         $targetChar = array();
         $guessChar = array();
         $ans = 0;
@@ -129,7 +148,7 @@ class wordleController {
                 $ans++;
             }
         }
-        return $ans." of the characters are in the correct place.";
+        return $ans." of the characters are in the correct place. ";
     }
 
     private function lenComp($target, $guess) {

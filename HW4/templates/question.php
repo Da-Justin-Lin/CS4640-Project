@@ -25,7 +25,7 @@
                     </div>
                     <div class="text-center">                
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="?command=logout" class="btn btn-danger">End Game</a>
+                    <a href="?command=gameover" class="btn btn-danger">End Game</a>
                     </div>
                 </form>
                 </div>

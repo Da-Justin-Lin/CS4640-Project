@@ -9,9 +9,6 @@ $command = "login";
 if (isset($_GET["command"]))
     $command = $_GET["command"];
 
-if (isset($_GET["question"]))
-    $command = $_GET["command"];  
-
 // If the user's email is not set in the cookies, then it's not
 // a valid session (they didn't get here from the login page),
 // so we should send them over to log in first before doing
