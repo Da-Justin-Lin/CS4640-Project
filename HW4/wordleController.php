@@ -45,8 +45,8 @@ class wordleController {
             setcookie("email", $_POST["email"], time() + 3600);
             setcookie("num_guess", 0, time() + 3600);
             $word = $this->loadQuestion();
-            setcookie("word", $word, time() + 3600);
-            setcookie("guess", " ", time() + 3600);
+            setcookie("word", " ", time() + 3600);
+            setcookie("guess", $word, time() + 3600);
             header("Location: ?command=question");
             return;
         }
