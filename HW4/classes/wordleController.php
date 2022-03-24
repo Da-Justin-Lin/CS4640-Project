@@ -45,7 +45,7 @@ class wordleController {
             setcookie("email", $_POST["email"], time() + 3600);
             setcookie("num_guess", 0, time() + 3600);
             $word = $this->loadQuestion();
-            setcookie("word", $word, time() + 3600);
+            setcookie("word", " ", time() + 3600);
             setcookie("guess", $word, time() + 3600);
             header("Location: ?command=question");
             return;
@@ -97,7 +97,7 @@ class wordleController {
             }
             setcookie("correct", "", time() - 3600);
         }else{
-            $message = "Pleas take a guess";
+            $message = "Please take a guess";
         }
 
         // update the question information in cookies
@@ -161,7 +161,7 @@ class wordleController {
             return "Your guess is too long.";
         }
         else {
-            return "Your guess is the correct length";
+            return "Your guess is the correct length.";
         }
     }
 }
