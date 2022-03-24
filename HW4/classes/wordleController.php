@@ -40,7 +40,7 @@ class wordleController {
             setcookie("num_guess", 0, time() + 3600);
             $word = $this->loadQuestion();
             setcookie("word", $word, time() + 3600);
-            setcookie("guess", " ", time() + 3600);
+            setcookie("guess", $word, time() + 3600);
             header("Location: ?command=question");
             return;
         }
@@ -75,15 +75,18 @@ class wordleController {
             setcookie("num_guess", $_COOKIE["num_guess"] + 1, time() + 3600);
             
             if ($_POST["answer"] == $_COOKIE["word"]) {
-                $answer = $_POST["answer"];
-                // user answered correctly -- perhaps we should also be better about how we
-                // verify their answers, perhaps use strtolower() to compare lower case only.
-                $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>"; 
+                // $answer = $_POST["answer"];
+                // // user answered correctly -- perhaps we should also be better about how we
+                // // verify their answers, perhaps use strtolower() to compare lower case only.
+                // $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>"; 
                 // Update the cookie: won't be available until next page load (stored on client)
                 $word = $this->loadQuestion();
                 setcookie("word", $word, time() + 3600);
+                header("Location: ?command=gameover");
             } else {     
-                $guess = nl2br($_COOKIE["guess"] . "Guess: " . $_POST["answer"] . " is incorrect.\n");
+                $guess = nl2br($_COOKIE["guess"] . "Guess: " . $_POST["answer"] . " is incorrect." . 
+                $this->charInTarget($_COOKIE["word"],$_POST["answer"]) . $this->charInCorrect($_COOKIE["word"],$_POST["answer"])
+             . $this->lenComp($_COOKIE["word"],$_POST["answer"]) ."\n");
                 setcookie("guess", $guess, time()+3600);
                 $message = $guess;
             }
@@ -99,11 +102,11 @@ class wordleController {
     private function charInTarget($target, $guess) {
         $targetChar = array();
         $ans = 0;
-        foreach ($target as $t) {
-            $targetChar = $t;
+        for ($x = 0; $x < strlen($target); $x++) {
+            $targetChar[] = $target[$x];
         }
-        foreach ($guess as $g) {
-            if(in_array($g, $targetChar)) {
+        for ($x = 0; $x < strlen($guess); $x++) {
+            if(in_array($guess[$x], $targetChar)) {
                 $ans++;
             }
         }
@@ -114,14 +117,14 @@ class wordleController {
         $targetChar = array();
         $guessChar = array();
         $ans = 0;
-        foreach ($target as $t) {
-            $targetChar = $t;
+        for ($x = 0; $x < strlen($target); $x++) {
+            $targetChar[] = $target[$x];
         }
-        foreach ($guess as $g) {
-            $guessCHar = $g;
+        for ($x = 0; $x < strlen($guess); $x++) {
+            $guessChar[] = $guess[$x];
         }
-        $length = count($targetChar);
-        for ($x = 0; $x <= $length; $x++) {
+        $length = min(strlen($target),strlen($guess));
+        for ($x = 0; $x < $length; $x++) {
             if($targetChar[$x] == $guessChar[$x]) {
                 $ans++;
             }
@@ -133,7 +136,7 @@ class wordleController {
         if(strlen($target) > strlen($guess)) {
             return "Your guess is too short.";
         }  
-        else if (strlen($target) > strlen($guess)) {
+        else if (strlen($target) < strlen($guess)) {
             return "Your guess is too long.";
         }
         else {
