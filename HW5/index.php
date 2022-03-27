@@ -19,5 +19,5 @@ if (!isset($_COOKIE["email"])) {
 }
 
 // Instantiate the controller and run
-$trivia = new FinanceController($command);
-$trivia->run();
+$finance = new FinanceController($command);
+$finance->run();
