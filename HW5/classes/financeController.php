@@ -21,6 +21,9 @@ class FinanceController {
             case "logout":
                 $this->destroyCookies();
             case "login":
+            case "new":
+                $this->new();
+                break;
             default:
                 $this->login();
         }
@@ -40,7 +43,6 @@ class FinanceController {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
                     setcookie("name", $data[0]["name"], time() + 3600);
                     setcookie("email", $data[0]["email"], time() + 3600);
-                    setcookie("score", $data[0]["score"], time() + 3600);
                     header("Location: ?command=question");
                 } else {
                     $error_msg = "Wrong password";
@@ -67,8 +69,6 @@ class FinanceController {
     }
 
     private function history() {
-        $this->logger->debug("Loaded question", $question);
-
         $user = [
             "name" => $_COOKIE["name"],
             "email" => $_COOKIE["email"],
@@ -97,13 +97,14 @@ class FinanceController {
         include("templates/question.php");
     }
 
-    private function loadQuestion() {
-        $data = $this->db->query("select id, question, answer from question order by rand() limit 1;");
-
-        if (!isset($data[0])) {
-            die("No questions in the database");
-        }
-        $question = $data[0];
-        return $question;
+    private function new() {
+        $insert = $this->db->query("insert into user (name, trans_name, trans_cat, date, amount, trans_type) values (?, ?, ?);", 
+                        "ssssss", $_POST["name"], $_POST["trans_name"], $_POST["trans_cat"], 
+                        $_POST["date"],$_POST["amount"], $_POST["trans_type"]);
+                if ($insert === false) {
+                    $error_msg = "Error inserting transaction";
+                } else {
+                    header("Location: ?command=new");
+                }
     }
 }
