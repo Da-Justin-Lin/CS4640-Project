@@ -21,9 +21,9 @@ class FinanceController {
             case "logout":
                 $this->destroyCookies();
             case "login":
+                $this->login();
             case "new":
                 $this->new();
-                break;
             default:
                 $this->login();
         }
@@ -36,14 +36,14 @@ class FinanceController {
 
     private function login() {
         if (isset($_POST["email"])) {
-            $data = $this->db->query("select * from user where email = ?;", "s", $_POST["email"]);
+            $data = $this->db->query("select * from hw5_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
                     setcookie("name", $data[0]["name"], time() + 3600);
                     setcookie("email", $data[0]["email"], time() + 3600);
-                    header("Location: ?command=question");
+                    header("Location: ?command=history");
                 } else {
                     $error_msg = "Wrong password";
                 }
@@ -52,7 +52,7 @@ class FinanceController {
                 // Note: never store clear-text passwords in the database
                 //       PHP provides password_hash() and password_verify()
                 //       to provide password verification
-                $insert = $this->db->query("insert into user (name, email, password) values (?, ?, ?);", 
+                $insert = $this->db->query("insert into hw5_user (name, email, password) values (?, ?, ?);", 
                         "sss", $_POST["name"], $_POST["email"], 
                         password_hash($_POST["password"], PASSWORD_DEFAULT));
                 if ($insert === false) {
@@ -61,7 +61,7 @@ class FinanceController {
                     setcookie("name", $_POST["name"], time() + 3600);
                     setcookie("email", $_POST["email"], time() + 3600);
                     setcookie("score", 0, time() + 3600);
-                    header("Location: ?command=question");
+                    header("Location: ?command=history");
                 }
             }
         }
