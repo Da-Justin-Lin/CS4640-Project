@@ -5,13 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Sky Chen; Da Lin">
         <meta name="description" content="Worlde Extreme">  
-        <title>Wordle Extreme</title>
+        <title>Finance Tracker</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> 
     </head>
     <body>
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
                 <h1>Transaction History User:<?=$name?> E-mail:<?=$email?></h1>
+                <p><?=$total_bal["list"];?> <?=$cat_bal["list"];?></p>
+                <p><?=$list["list"];?></p>
                 <form action="?command=history" method="post">
                     <div class="text-center">                
                     <a href="?command=newTransaction" class="btn btn-primary">Add a new transaction</a>
