@@ -46,7 +46,7 @@
                         <label for="debit">Debit</label><br>
                     </div>
                     <div class="text-center">                
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-primary">Submit Transaction</button>
                     </div>
                 </form>
                 </div>

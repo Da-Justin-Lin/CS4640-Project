@@ -69,42 +69,31 @@ class FinanceController {
     }
 
     private function history() {
-        $user = [
-            "name" => $_COOKIE["name"],
-            "email" => $_COOKIE["email"],
-            "score" => $_COOKIE["score"]
-        ];
-
-        $message = "";
-        if (isset($_POST["answer"])) {
-            $answer = $_POST["answer"];
-            // look up the question that the user answered
-            $data = $this->db->query("select answer from question where id = ?;", "i", $_POST["questionid"]);
-            if ($data === false) {
-                $message = "<div class='alert alert-danger'>An error occurred</div>";
-            } else if (!isset($data[0])) {
-                $message = "<div class='alert alert-danger'>That question didn't exist</div>";
-            } else if ($data[0]["answer"] == $_POST["answer"]) {
-                $message = "<div class='alert alert-success'><b>$answer</b> was correct!</div>";
-
-                $user["score"] += 10;
-                setcookie("score", $user["score"], time() + 3600);
-                $this->db->query("update user set score = ? where email = ?;", "is", $user["score"], $user["email"]);
-            } else {
-                $message = "<div class='alert alert-danger'><b>$answer</b> was incorrect.  The correct was {$data[0]["answer"]}.</div>";
-            }
-        }
-        include("templates/question.php");
+        $data = $this->db->query("select * from hw5_transaction where user_id = ? order by t_date desc;");
+        $data2 = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;");
+        $data3 = $this->db->query("select category, sum(amount) as balance from hw5_transaction group by category;");
+        include("templates/history.php");
     }
 
     private function new() {
-        $insert = $this->db->query("insert into user (name, trans_name, trans_cat, date, amount, trans_type) values (?, ?, ?);", 
-                        "ssssss", $_POST["name"], $_POST["trans_name"], $_POST["trans_cat"], 
-                        $_POST["date"],$_POST["amount"], $_POST["trans_type"]);
-                if ($insert === false) {
-                    $error_msg = "Error inserting transaction";
-                } else {
-                    header("Location: ?command=new");
-                }
+        if (isset($_POST["trans_type"])) {
+            // if credit, amount is positive
+            if ($_POST["trans_type"] == "credit") {
+                $insert = $this->db->query("insert into hw5_transaction (name, trans_name, trans_cat, date, amount, trans_type) values (?, ?, ?, ?, ?, ?);", 
+                "ssssss", $_POST["name"], $_POST["trans_name"], $_POST["trans_cat"], 
+                $_POST["date"], $_POST["amount"], $_POST["trans_type"]);
+            }
+            // if debit, amount is negative
+            else {
+                $insert = $this->db->query("insert into hw5_transaction (name, trans_name, trans_cat, date, amount, trans_type) values (?, ?, ?, ?, ?, ?);", 
+                "ssssss", $_POST["name"], $_POST["trans_name"], $_POST["trans_cat"], 
+                $_POST["date"], -1*$_POST["amount"], $_POST["trans_type"]);
+            }
+        }
+        if ($insert === false) {
+            $error_msg = "Error inserting transaction";
+        } else {
+            header("Location: ?command=new");
+        }
     }
 }
