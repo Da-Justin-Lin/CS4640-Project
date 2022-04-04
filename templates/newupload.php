@@ -26,9 +26,9 @@
            <div class="row col-xs-12">
                 <pre>
                     <?php
-                        $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Rating, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
+                        $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
                         "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
-                        $_POST["Ingredients"], $_POST["Instructions"], 0, $_SESSION["name"], $_SESSION["id"]);
+                        $_POST["Ingredients"], $_POST["Instructions"],$_SESSION["name"], $_SESSION["id"]);
                         echo "<br>";
                         echo "Recipe Name: ".$_POST["RecipeName"];
                         echo "<br>";

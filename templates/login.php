@@ -35,7 +35,7 @@
                     <input type="password" id="Password" name="Password">
                     <br>
                     <button type="upload" style="margin-left: 10px;">
-                        <a href="home.html" style = "text-decoration: None;">Login</a>
+                        Login
                     </button>
                 </form>
                 <?php
@@ -60,7 +60,7 @@
                     <input type="password" id="confirm_Password" name="confirm_Password">
                     <br>
                     <button type="upload" style="margin-left: 10px;">
-                        <a href="home.html" style = "text-decoration: None;">Create Account</a>
+                        Create Account                    
                     </button>
                 </form>
             </div>

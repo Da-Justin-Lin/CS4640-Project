@@ -16,7 +16,7 @@ class RecipickController {
     public function run() {
         switch($this->command) {
             case "history":
-                $this->history();
+                $this->displayrecipes();
                 break;
             case "logout":
                 $this->destroyCookies();
@@ -34,6 +34,10 @@ class RecipickController {
         }
     }
 
+    private function displayrecipes() {
+        $list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipe where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
+        include("templates/myrecipes.php");
+    }
     private function signup() {
         if (isset($_POST["email"])) {
             $data = $this->db->query("select * from recipick_users where email = ?;", "s", $_POST["email"]);
@@ -57,7 +61,7 @@ class RecipickController {
                     $_SESSION["email"] =   $_POST["email"];
                     $_SESSION["id"] = $id[0]["id"];
                     $_SESSION["num_recipes"] = $data[0]["num_recipes"];
-                    //header("Location: ?command=home");
+                    header("Location: home.html");
                 }
             }
         }
@@ -75,7 +79,7 @@ class RecipickController {
                     $_SESSION["email"] =  $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
                     $_SESSION["num_recipes"] = $data[0]["num_recipes"];
-                    //header("Location: ?command=history");
+                    header("Location: home.html");
                 } else {
                     $error_msg = "Wrong password";
                 }
