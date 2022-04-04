@@ -38,9 +38,10 @@ class RecipickController {
         $list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipe where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
         include("templates/myrecipes.php");
     }
+
     private function signup() {
         if (isset($_POST["email"])) {
-            $data = $this->db->query("select * from recipick_users where email = ?;", "s", $_POST["email"]);
+            $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) {
@@ -70,7 +71,7 @@ class RecipickController {
 
     private function login() {
         if (isset($_POST["email"])) {
-            $data = $this->db->query("select * from recipick_users where email = ?;", "s", $_POST["email"]);
+            $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) {

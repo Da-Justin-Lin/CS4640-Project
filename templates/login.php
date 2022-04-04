@@ -29,12 +29,12 @@
                     </h1>
                     <br>
                     <label for="Email" style = "font-size: 30px">E-mail:</label>
-                    <input type="text" id="Email" name="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <input type="text" id="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                     <br>
                     <label for="Password" style = "font-size: 30px">Password:</label>
-                    <input type="password" id="Password" name="Password">
+                    <input type="password" id="Password" name="password">
                     <br>
-                    <button type="upload" style="margin-left: 10px;">
+                    <button type="submit" style="margin-left: 10px;">
                         Login
                     </button>
                 </form>
@@ -48,18 +48,15 @@
                         Sign up
                     </h1>
                     <label for="Username" style = "font-size: 30px">Username:</label>
-                    <input type="text" id="Username" name="Username">
+                    <input type="text" id="Username" name="name">
                     <br>
                     <label for="Email" style = "font-size: 30px" >E-mail:</label>
-                    <input type="text" id="Email" name="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <input type="text" id="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                     <br>
                     <label for="Password" style = "font-size: 30px">Password:</label>
                     <input type="password" id="password" name="password" pattern=".{8,}">
                     <br>
-                    <label for="confirm_Password" style = "font-size: 30px">Confirm Password:</label>
-                    <input type="password" id="confirm_Password" name="confirm_Password">
-                    <br>
-                    <button type="upload" style="margin-left: 10px;">
+                    <button type="submit" style="margin-left: 10px;">
                         Create Account                    
                     </button>
                 </form>
