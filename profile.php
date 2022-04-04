@@ -4,11 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <title>Recipick</title>
+        <title>Profile</title>
         <meta name="author" content="Sky Chen/Da Lin">
         <meta name="description" content="A place to find recipes that work for you.">
         <meta name="keywords" content="food">
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/profile.css">
     </head> 
     <body>
         <header>
@@ -20,5 +21,13 @@
                 <a href="profile.php">Profile</a>
             </nav>
         </header>
+        <p>Username: <?=$_SESSION["name"]?></p>
+        <p>Email: <?=$_SESSION["email"]?></p>
+        <p>Average Ratings: <?=$_SESSION["num_recipes"]?></p> 
+        <p>Number of Recipes: </p>
+
+        <button onclick = "location='index.html'" style="margin-left: 20px;">
+            Log out
+        </button>
     </body>
 </html>

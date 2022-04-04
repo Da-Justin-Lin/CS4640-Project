@@ -18,6 +18,11 @@
                 </nav>
             </header>
             <div class = "flex-container">
+                <?php
+                    if (!empty($error_msg)) {
+                        echo "<div class='alert alert-danger'>$error_msg</div>";
+                    }
+                ?>
                 <form action="?command=login" method="post">
                     <h1 style = "font-size: 60px;display:inline-block">
                         Login
@@ -33,7 +38,11 @@
                         <a href="home.html" style = "text-decoration: None;">Login</a>
                     </button>
                 </form>
-
+                <?php
+                    if (!empty($error_msg)) {
+                        echo "<div class='alert alert-danger'>$error_msg</div>";
+                    }
+                ?>
                 <form action="?command=signup" method="post">
                     <h1 style = "font-size: 60px">
                         Sign up
