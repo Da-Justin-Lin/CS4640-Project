@@ -14,7 +14,7 @@
         <body>
             <header>
                 <nav>
-                        <a href="index.html">Recipick</a>
+                    <a href="index.html">Recipick</a>
                 </nav>
             </header>
             <div class = "flex-container">
@@ -23,7 +23,7 @@
                         echo "<div class='alert alert-danger'>$error_msg</div>";
                     }
                 ?>
-                <form action="?command=login" method="post">
+                <form class = "login" action="?command=login" method="post">
                     <h1 style = "font-size: 60px;display:inline-block">
                         Login
                     </h1>
@@ -43,7 +43,7 @@
                         echo "<div class='alert alert-danger'>$error_msg</div>";
                     }
                 ?>
-                <form action="?command=signup" method="post">
+                <form class = "signup" action="?command=signup" method="post">
                     <h1 style = "font-size: 60px">
                         Sign up
                     </h1>
