@@ -51,7 +51,7 @@ class RecipickController {
                 // Note: never store clear-text passwords in the database
                 //       PHP provides password_hash() and password_verify()
                 //       to provide password verification
-                $insert = $this->db->query("insert into recipick_user (name, email, password, num_recipes) values (?, ?, ?. ?);", 
+                $insert = $this->db->query("insert into recipick_user (name, email, password, num_recipes) values (?, ?, ?, ?);", 
                         "ssss", $_POST["name"], $_POST["email"], 
                         password_hash($_POST["password"], PASSWORD_DEFAULT), 0);
                 $id = $this->db->query("select id from recipick_user where email = ?;", "s", $_POST["email"]);
@@ -66,7 +66,7 @@ class RecipickController {
                 }
             }
         }
-        include("templates/login.php");
+        include("login.php");
     }
 
     private function login() {
@@ -88,7 +88,7 @@ class RecipickController {
                 $error_msg = "User not found";
             }
         }
-        include("templates/login.php");
+        include("login.php");
     }
 
 
