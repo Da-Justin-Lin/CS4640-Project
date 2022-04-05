@@ -83,7 +83,11 @@ class RecipickController {
             $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
-            } else if (!empty($data)) {
+            }
+            else if ( ($_POST["email"] == "") || ($_POST["name"] == "") || ($_POST["password"] == "") ){
+                $error_msg = "Don't leave signup fields blank";
+            }
+            else if (!empty($data)) {
                 $error_msg = "Email is already in use";
             } else { // empty, no user found
                 // TODO: input validation
@@ -114,7 +118,11 @@ class RecipickController {
             $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
             if ($data === false) {
                 $error_msg = "Error checking for user";
-            } else if (!empty($data)) {
+            }
+            else if ( ($_POST["email"] == "") || ($_POST["password"] == "") ){
+                $error_msg = "Don't leave login fields blank";
+            }
+            else if (!empty($data)) {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
                     session_start();
                     $_SESSION["name"] =  $data[0]["name"];
