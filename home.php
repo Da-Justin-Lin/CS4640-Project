@@ -17,17 +17,14 @@
                     <a href="home.html">Recipick</a>
                     <a href="search.html">Search</a>
                     <a href="savedrecipes.html">Saved Recipes</a>
-                    <a href="myrecipes.html">My Recipes</a>
+                    <a href="?command = displayProfile">My Recipes</a>
                     
-                    <a href="profile.php">Profile</a>
+                    <a href="?command=displayProfile">Profile</a>
                 </nav>
             </header>
             <h1 style="font-size: 70px; text-align: center;">
                 Recipick
             </h1>
-            <form action="?command=displayProfile" method="post">
-                <input type="number" id="amount" name="amount">
-                <button type="submit" class="btn btn-primary">profile</button>
-            </form>
+                <a href="?command=profile" class="btn btn-primary">Profile</a>
         </body>
 </html>

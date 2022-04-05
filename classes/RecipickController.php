@@ -30,6 +30,9 @@ class RecipickController {
             case "signup":
                 $this->signup();
                 break;
+            case "home":
+                $this->home();
+                break;
             case "login":
             default:
                 $this->login();
@@ -38,13 +41,11 @@ class RecipickController {
     }
 
     private function displayProfile() {
-        if (isset($_POST["amount"])) {
+            print_r($_SESSION);
             $name = $_SESSION["name"];
             $email = $_SESSION["email"];
             $num_recipes = $_SESSION["num_recipes"];
             include("profile.php");
-            header("Location: profile.php");
-        }
     }
 
     private function displayrecipes() {
@@ -76,7 +77,7 @@ class RecipickController {
                     $_SESSION["email"] =   $_POST["email"];
                     $_SESSION["id"] = $id[0]["id"];
                     $_SESSION["num_recipes"] = $data[0]["num_recipes"];
-                    header("Location: home.html");
+                    header("Location: ?command=home");
                 }
             }
         }
@@ -95,7 +96,7 @@ class RecipickController {
                     $_SESSION["email"] =  $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
                     $_SESSION["num_recipes"] = $data[0]["num_recipes"];
-                    header("Location: home.html");
+                    header("Location: ?command=home");
                 } else {
                     $error_msg = "Wrong password";
                 }
@@ -119,5 +120,10 @@ class RecipickController {
                 header("Location: ?command=history");
             }
         }   
+    }
+
+    private function home(){
+        print_r($_SESSION);
+        include("home.php");
     }
 }

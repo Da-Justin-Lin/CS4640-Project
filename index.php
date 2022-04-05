@@ -6,7 +6,7 @@ spl_autoload_register(function($classname) {
 });
 
 // Parse the query string for command
-$command = "index";
+$command = "login";
 if (isset($_GET["command"]))
     $command = $_GET["command"];
 
