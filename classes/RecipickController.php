@@ -15,14 +15,23 @@ class RecipickController {
 
     public function run() {
         switch($this->command) {
-            case "history":
+            case "myrecipes":
                 $this->displayrecipes();
+                break;
+            case "newupload":
+                $this->newupload();
+                break;
+            case "search":
+                $this->search();
+                break;
+            case "saved":
+                $this->saved();
                 break;
             case "profile":
                 $this->displayProfile();
                 break;
             case "logout":
-                $this->destroyCookies();
+                $this->logout();
                 break;
             case "new":
                 $this->new();
@@ -40,16 +49,32 @@ class RecipickController {
         }
     }
 
+    private function newupload() {
+        include("newupload.php");
+    }
+    private function logout() {
+        session_unset();
+        session_destroy();
+        header("Location: ?command=login");
+    }
+
+    private function search() {
+        include("search.php");
+    }
+
+    private function saved() {
+        include("savedrecipes.php");
+    }
+
     private function displayProfile() {
-            print_r($_SESSION);
-            $name = $_SESSION["name"];
-            $email = $_SESSION["email"];
-            $num_recipes = $_SESSION["num_recipes"];
-            include("profile.php");
+        $name = $_SESSION["name"];
+        $email = $_SESSION["email"];
+        $num_recipes = $_SESSION["num_recipes"];
+        include("profile.php");
     }
 
     private function displayrecipes() {
-        $list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipe where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
+        //$list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipes where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
         include("myrecipes.php");
     }
 
@@ -109,21 +134,19 @@ class RecipickController {
 
 
     private function new() {
-        include("templates/newupload.php");
         if (isset($_POST["RecipeName"])) {
-            $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Rating, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
+            $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
             "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
-            $_POST["Ingredients"], $_POST["Instructions"], 0, $_SESSION["name"], $_SESSION["id"]);
+            $_POST["Ingredients"], $_POST["Instructions"], $_SESSION["name"], $_SESSION["id"]);
             if ($insert === false) {
                 $error_msg = "Error submitting recipe";
             } else {
-                header("Location: ?command=history");
+                header("Location: ?command=myrecipes");
             }
         }   
     }
 
     private function home(){
-        print_r($_SESSION);
         include("home.php");
     }
 }

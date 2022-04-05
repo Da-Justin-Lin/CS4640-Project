@@ -1,51 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">  
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sky Chen, Da Lin">
-        <meta name="description" content="Recipes that work for you">  
-        <title>Recipe Submitted!</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>Upload New Recipes</title>
+        <meta name="author" content="Sky Chen/Da Lin">
+        <meta name="description" content="A place to find recipes that work for you.">
+        <meta name="keywords" content="food">
         <link rel="stylesheet" href="styles/main.css">
-    </head>
-    <header>
-        <nav>
-            <a href="home.html">Recipick</a>
-            <a href="search.html">Search</a>
-            <a href="savedrecipes.html">Saved Recipes</a>
-            <a href="myrecipes.html">My Recipes</a>
-            <a href="profile.php">Profile</a>
-        </nav>
-    </header>
+        <link rel="stylesheet" href="styles/newupload.css">
+    </head> 
     <body>
-        <div class="container" style="margin-top: 15px;">
-            <div class="row col-xs-12">
-                <h1>Recipe Submitted!</h1>
-            </div>
-           <div class="row col-xs-12">
-                <pre>
-                    <?php
-                        $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
-                        "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
-                        $_POST["Ingredients"], $_POST["Instructions"],$_SESSION["name"], $_SESSION["id"]);
-                        echo "<br>";
-                        echo "Recipe Name: ".$_POST["RecipeName"];
-                        echo "<br>";
-                        echo "Estimated time: ".$_POST["EstimatedTime"];
-                        echo "<br>";
-                        echo "Ingredients: ".$_POST["Ingredients"];
-                        echo "<br>";
-                        echo "Instructions: ".$_POST["Instructions"];
-                    ?>
-                </pre>
+        <header>
+            <nav>
+                <a href="?command=home">Recipick</a>
+                <a href="?command=search">Search</a>
+                <a href="?command=saved">Saved Recipes</a>
+                <a href="?command=myrecipes">My Recipes</a>
+                <a href="?command=profile">Profile</a>
+            </nav>
+        </header>
 
-                <button onclick = "location='myrecipes.html'" style="margin-left: 130px;">
-                    Back
-                </button>
-                
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <form action="?command=new" method="post">
+            <label for="RecipeName" style = "font-size: 30px; margin-left:20px">Recipe Name:</label>
+            <input type="text" id="RecipeName" name="RecipeName" pattern=".{2,}">
+            <label for="EstimatedTime" style = "font-size: 30px; margin-left: 50px;">Estimated time:</label>
+            <input type="text" id="EstimatedTime" name="EstimatedTime" pattern=".{2,}">
+            <br>
+            <label for="Ingredients" style = "font-size: 30px; margin-left:20px;">Ingredients:</label>
+            <br>
+            <textarea name="Ingredients" id="Ingredients" cols="80" rows="6" pattern=".{2,}"></textarea>
+            <br>
+            <label for="Instructions" style = "font-size: 30px; margin-left:20px;">Instructions:</label>
+            <br>
+            <textarea name="Instructions" id="Instructions" cols="80" rows="10" pattern=".{2,}"></textarea>
+            <br>
+            <label for="photo" style = "font-size: 30px; margin-left:20px;">Upload Image:</label>
+            <input type="file"
+                id="photo" name="photo"
+                accept="image/*">
+            <button type = "submit" style="margin-left: 130px;">
+                Submit
+            </button>
+        </form>
     </body>
 </html>

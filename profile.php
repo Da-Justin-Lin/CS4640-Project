@@ -14,11 +14,11 @@
     <body>
         <header>
             <nav>
-                <a href="home.html">Recipick</a>
-                <a href="search.html">Search</a>
-                <a href="savedrecipes.html">Saved Recipes</a>
-                <a href="myrecipes.html">My Recipes</a>
-                <a href="profile.php">Profile</a>
+                <a href="?command=home">Recipick</a>
+                <a href="?command=search">Search</a>
+                <a href="?command=saved">Saved Recipes</a>
+                <a href="?command=myrecipes">My Recipes</a>
+                <a href="?command=profile">Profile</a>
             </nav>
         </header>
         <p>Username: <?=$name?></p>

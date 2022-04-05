@@ -14,17 +14,15 @@
         <body>
             <header>
                 <nav>
-                    <a href="home.html">Recipick</a>
-                    <a href="search.html">Search</a>
-                    <a href="savedrecipes.html">Saved Recipes</a>
-                    <a href="?command = displayProfile">My Recipes</a>
-                    
-                    <a href="?command=displayProfile">Profile</a>
+                    <a href="?command=home">Recipick</a>
+                    <a href="?command=search">Search</a>
+                    <a href="?command=saved">Saved Recipes</a>
+                    <a href="?command=myrecipes">My Recipes</a>
+                    <a href="?command=profile">Profile</a>
                 </nav>
             </header>
             <h1 style="font-size: 70px; text-align: center;">
                 Recipick
             </h1>
-                <a href="?command=profile" class="btn btn-primary">Profile</a>
         </body>
 </html>

@@ -38,11 +38,6 @@
                         Login
                     </button>
                 </form>
-                <?php
-                    if (!empty($error_msg)) {
-                        echo "<div class='alert alert-danger'>$error_msg</div>";
-                    }
-                ?>
                 <form class = "signup" action="?command=signup" method="post">
                     <h1 style = "font-size: 60px">
                         Sign up
