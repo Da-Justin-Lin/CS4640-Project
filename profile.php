@@ -21,10 +21,10 @@
                 <a href="profile.php">Profile</a>
             </nav>
         </header>
-        <p>Username: <?=$_SESSION["name"]?></p>
-        <p>Email: <?=$_SESSION["email"]?></p>
-        <p>Average Ratings: <?=$_SESSION["num_recipes"]?></p> 
-        <p>Number of Recipes: </p>
+        <p>Username: <?=$name?></p>
+        <p>Email: <?=$email?></p>
+        <p>Average Ratings: 0</p> 
+        <p>Number of Recipes: <?=$num_recipes?> </p>
 
         <button onclick = "location='index.html'" style="margin-left: 20px;">
             Log out

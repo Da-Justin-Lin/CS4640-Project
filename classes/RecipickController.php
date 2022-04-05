@@ -18,6 +18,9 @@ class RecipickController {
             case "history":
                 $this->displayrecipes();
                 break;
+            case "profile":
+                $this->displayProfile();
+                break;
             case "logout":
                 $this->destroyCookies();
                 break;
@@ -34,9 +37,19 @@ class RecipickController {
         }
     }
 
+    private function displayProfile() {
+        if (isset($_POST["amount"])) {
+            $name = $_SESSION["name"];
+            $email = $_SESSION["email"];
+            $num_recipes = $_SESSION["num_recipes"];
+            include("profile.php");
+            header("Location: profile.php");
+        }
+    }
+
     private function displayrecipes() {
         $list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipe where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
-        include("templates/myrecipes.php");
+        include("myrecipes.php");
     }
 
     private function signup() {
@@ -58,6 +71,7 @@ class RecipickController {
                 if ($insert === false) {
                     $error_msg = "Error inserting user";
                 } else {
+                    session_start();
                     $_SESSION["name"] =  $_POST["name"];
                     $_SESSION["email"] =   $_POST["email"];
                     $_SESSION["id"] = $id[0]["id"];
@@ -76,6 +90,7 @@ class RecipickController {
                 $error_msg = "Error checking for user";
             } else if (!empty($data)) {
                 if (password_verify($_POST["password"], $data[0]["password"])) {
+                    session_start();
                     $_SESSION["name"] =  $data[0]["name"];
                     $_SESSION["email"] =  $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
