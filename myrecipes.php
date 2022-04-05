@@ -27,13 +27,27 @@
             Upload New
         </button> -->
         <br>
-        <table>
-            <tr>
-                <th>&nbsp; Recipe Name &nbsp;</th>
-                <th>&nbsp; Estimated Time &nbsp;</th>
-                <th>&nbsp;Rating &nbsp;</th>
-                <th>&nbsp; Edit? &nbsp;</th>
-            </tr>
-        </table>
+        <?php
+            if (!empty($error_msg)) {
+                echo "<div class='alert alert-danger'>$error_msg</div>";
+            }else{
+                echo "<table border='1'>
+                <tr>
+                <th>Recipe Name</th>
+                <th>Estimated Time</th>
+                <th>Rating</th>
+                <th>Edit?</th>
+                </tr>";
+                foreach ($data as $item){
+                    echo "<tr>";
+                    echo "<td>" . $item['RecipeName'] . "</td>";
+                    echo "<td>" . $item['EstimatedTime'] . "</td>";
+                    echo "<td>" . 0 . "</td>";
+                    echo "<td>" . "Edit?" . "</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+        ?>
         <hr>
     </body>

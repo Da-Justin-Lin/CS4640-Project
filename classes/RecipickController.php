@@ -74,7 +74,7 @@ class RecipickController {
     }
 
     private function displayrecipes() {
-        //$list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipes where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
+        $data = $this->db->query("select RecipeName, EstimatedTime from recipes where user_id = ?;", "s", $_SESSION["id"]);
         include("myrecipes.php");
     }
 
@@ -152,6 +152,13 @@ class RecipickController {
                 header("Location: ?command=myrecipes");
             }
         }   
+    }
+
+    private function myrecipes(){
+        
+        print_r($data);
+            //$ratings = $this->db->query("select rating from recipe_ratings where user_id = ?;", "s", $user_id);
+        include("myrecipes.php");
     }
 
     private function home(){
