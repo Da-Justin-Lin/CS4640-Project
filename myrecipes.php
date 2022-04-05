@@ -40,14 +40,13 @@
                 </tr>";
                 foreach ($data as $item){
                     echo "<tr>";
-                    echo "<td>" . $item['RecipeName'] . "</td>";
-                    echo "<td>" . $item['EstimatedTime'] . "</td>";
-                    echo "<td>" . 0 . "</td>";
-                    echo "<td>" . "Edit?" . "</td>";
+                    echo "<td style='text-align:center;'>" . $item['RecipeName'] . "</td>";
+                    echo "<td style='text-align:center;'>" . $item['EstimatedTime'] . "</td>";
+                    echo "<td style='text-align:center;'>" . 0 . "</td>";
+                    echo "<td style='text-align:center;'>" . "Edit?" . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
             }
         ?>
-        <hr>
     </body>
