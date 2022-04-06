@@ -74,7 +74,7 @@ class RecipickController {
     }
 
     private function displayrecipes() {
-        $data = $this->db->query("select RecipeName, EstimatedTime from recipes where user_id = ?;", "s", $_SESSION["id"]);
+        $data = $this->db->query("select id, RecipeName, EstimatedTime from recipes where user_id = ?;", "s", $_SESSION["id"]);
         include("myrecipes.php");
     }
 

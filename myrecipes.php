@@ -39,10 +39,22 @@
                 <th>Edit?</th>
                 </tr>";
                 foreach ($data as $item){
+                    $rate = $this->db->query("select rating from ratings where recipe_id = ?;", "s", $item["id"]);
+                    $count = 0;
+                    $total = 0;
+                    foreach ($rate as $r) {
+                        $total += $r["rating"];
+                        $count++;
+                    }
+                    if ($count == 0) {
+                        $rate = 0;
+                    }else {
+                        $rate = $total/$count;
+                    }
                     echo "<tr>";
-                    echo "<td style='text-align:center;'>" . $item['RecipeName'] . "</td>";
-                    echo "<td style='text-align:center;'>" . $item['EstimatedTime'] . "</td>";
-                    echo "<td style='text-align:center;'>" . 0 . "</td>";
+                    echo "<td style='text-align:center;'>" . $item["RecipeName"] . "</td>";
+                    echo "<td style='text-align:center;'>" . $item["EstimatedTime"] . "</td>";
+                    echo "<td style='text-align:center;'>" . $rate . "</td>";
                     echo "<td style='text-align:center;'>" . "Edit?" . "</td>";
                     echo "</tr>";
                 }
