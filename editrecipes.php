@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <title>Edit Recipes</title>
+        <title>Upload New Recipes</title>
         <meta name="author" content="Sky Chen/Da Lin">
         <meta name="description" content="A place to find recipes that work for you.">
         <meta name="keywords" content="food">
@@ -22,28 +22,40 @@
             </nav>
         </header>
 
-        <label style = "font-size: 30px">Recipe Name:</label>
-        <input type="text" id="RecipeName" name="RecipeName">
-        <label style = "font-size: 20px; margin-left: 50px;">Estimated time:</label>
-        <input type="text" id="estimatedtime" name="estimatedtime">
-        <br>
+        <form action="?command=edit&id=<?=$recipe_id?>" method="post">
+            <label for="RecipeName" style = "font-size: 30px; margin-left:20px">Recipe Name:</label>
+            <input type="text" id="RecipeName" name="RecipeName" pattern=".{2,}" value="<?php echo $recipe["RecipeName"]; ?>">
+            <label for="EstimatedTime" style = "font-size: 30px; margin-left: 50px;">Estimated time:</label>
+            <input type="text" id="EstimatedTime" name="EstimatedTime" pattern=".{2,}" value="<?php echo $recipe["EstimatedTime"]; ?>">
+            <br>
+            <label for="Ingredients" style = "font-size: 30px; margin-left:20px;">Ingredients:</label>
+            <br>
 
-        <label style = "font-size: 30px">Ingredients:</label>
-        <br>
-        <textarea name="Text1" cols="80" rows="6"></textarea>
-        <br>
+            <textarea name="Ingredients" id="Ingredients" cols="80" rows="6" pattern=".{2,}">
+                <?php echo $recipe["Ingredients"]; ?>
+            </textarea>
+            
+            <br>
+            <label for="Instructions" style = "font-size: 30px; margin-left:20px;">Instructions:</label>
+            <br>
 
-        <label style = "font-size: 30px">Instructions:</label>
-        <br>
-        <textarea name="Instructions" cols="80" rows="10"></textarea>
-        <br>
+            <textarea name="Instructions" id="Instructions" cols="80" rows="10" pattern=".{2,}">
+            <?php echo $recipe["Instructions"]; ?>
+            </textarea>
 
-        <button onclick = "location='myrecipes.html'" style="margin-left: 10px;">
-            Submit
-        </button>
-
-        <button onclick = "location='myrecipes.html'" style="margin-left: 10px; background-color: rgb(255, 166, 166);">
-            Delete
-        </button>
+            <br>
+            <label for="photo" style = "font-size: 30px; margin-left:20px;">Upload Image:</label>
+            <input type="file"
+                id="photo" name="photo"
+                accept="image/*">
+            <button type = "submit" style="margin-left: 130px;">
+                Submit
+            </button>
+        </form>
+        <form action="?command=delete&id=<?=$recipe_id?>" method = "post">
+            <button type = "submit" style="margin-left: 10px; background-color: rgb(255, 166, 166);">
+                Delete
+            </button>
+        </form>
     </body>
 </html>

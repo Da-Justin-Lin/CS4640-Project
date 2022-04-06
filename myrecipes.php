@@ -51,11 +51,12 @@
                     }else {
                         $rate = $total/$count;
                     }
+                    $id = $item['id'];
                     echo "<tr>";
                     echo "<td style='text-align:center;'>" . $item["RecipeName"] . "</td>";
                     echo "<td style='text-align:center;'>" . $item["EstimatedTime"] . "</td>";
                     echo "<td style='text-align:center;'>" . $rate . "</td>";
-                    echo "<td style='text-align:center;'>" . "Edit?" . "</td>";
+                    echo "<td style='text-align:center;'>" .  "<a href='?command=edit&id=$id'>Edit</a>" . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";

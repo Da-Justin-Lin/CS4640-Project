@@ -14,7 +14,10 @@ class RecipickController {
     }
 
     public function run() {
-        switch($this->command) {
+        if (!isset($_GET['command'])){
+            $this->login();
+        }else{
+        switch($_GET['command']) {
             case "myrecipes":
                 $this->displayrecipes();
                 break;
@@ -42,11 +45,17 @@ class RecipickController {
             case "home":
                 $this->home();
                 break;
+            case "edit":
+                $this->edit();
+                break;
+            case "delete":
+                $this->delete();
+                break;
             case "login":
             default:
                 $this->login();
                 break;
-        }
+        }}
     }
 
     private function newupload() {
@@ -91,7 +100,8 @@ class RecipickController {
     }
 
     private function displayrecipes() {
-        $data = $this->db->query("select id, RecipeName, EstimatedTime from recipes where user_id = ?;", "s", $_SESSION["id"]);
+        $data = $this->db->query("select RecipeName, EstimatedTime, id from recipes where user_id = ?;", "s", $_SESSION["id"]);
+        //$list = $this->db->query("select RecipeName, EstimatedTime, Rating from recipes where user_id = ? order by RecipeName desc;","s", $_SESSION["id"]);
         include("myrecipes.php");
     }
 
@@ -176,11 +186,36 @@ class RecipickController {
         include("newupload.php");
     }
 
-    private function myrecipes(){
-        
-        print_r($data);
-            //$ratings = $this->db->query("select rating from recipe_ratings where user_id = ?;", "s", $user_id);
-        include("myrecipes.php");
+    private function edit(){
+        $recipe_id = $_GET['id'];
+        $recipe = $this->db->query("select * from recipes where id = ?;", "s", $recipe_id)[0];
+        if (isset($_POST["RecipeName"])) {
+            $RecipeName = $_POST['RecipeName'];
+            $EstimatedTime = $_POST['EstimatedTime'];
+            $Ingredients = $_POST['Ingredients'];
+            $Instructions = $_POST['Instructions'];
+            $name = $_SESSION['name'];
+            $id = $_SESSION['id'];
+
+            $insert = $this->db->query("UPDATE recipes set RecipeName = $RecipeName, EstimatedTime = $EstimatedTime, Ingredients = $Ingredients, Instructions = $Instructions, Author = $name, user_id = $id where id = $recipe_id;");
+
+            // $insert = $this->db->query("update recipes set (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?) where id=?;", 
+            // "sssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
+            // $_POST["Ingredients"], $_POST["Instructions"], $_SESSION["name"], $_SESSION["id"], $recipe_id);
+            if ($insert === false) {
+                $error_msg = "Error submitting recipe";
+            } else {
+                header("Location: ?command=myrecipes");
+            }
+        }
+        include("editrecipes.php");
+    }
+
+    private function delete(){
+        $recipe_id = $_GET['id'];
+        $insert = $this->db->query("DELETE FROM recipes WHERE id=$recipe_id;");
+        header("Location: ?command=myrecipes");
+        include("editrecipes.php");
     }
 
     private function home(){
