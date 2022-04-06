@@ -21,7 +21,6 @@
                 <a href="?command=profile">Profile</a>
             </nav>
         </header>
-
         <label for="RecipeName" style = "font-size: 30px">Recipe Name:</label>
         <input type="text" id="RecipeName" name="RecipeName">
         <label for="estimatedtime" style = "font-size: 20px; margin-left: 50px;">Estimated time:</label>

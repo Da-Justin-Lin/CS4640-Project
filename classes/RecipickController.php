@@ -158,16 +158,22 @@ class RecipickController {
 
     private function new() {
         if (isset($_POST["RecipeName"])) {
-            $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
-            "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
-            $_POST["Ingredients"], $_POST["Instructions"], $_SESSION["name"], $_SESSION["id"]);
-            $_SESSION["num_recipes"] += 1;
-            if ($insert === false) {
-                $error_msg = "Error submitting recipe";
-            } else {
-                header("Location: ?command=myrecipes");
+            if (($_POST["RecipeName"] == "") || ($_POST["EstimatedTime"] == "") || ($_POST["Ingredients"] == "") || ($_POST["Instructions"] == "")) {
+                $error_msg = "Fill out all the fields";
+            }
+            else {
+                $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
+                "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
+                $_POST["Ingredients"], $_POST["Instructions"], $_SESSION["name"], $_SESSION["id"]);
+    
+                if ($insert === false) {
+                    $error_msg = "Error submitting recipe";
+                } else {
+                    header("Location: ?command=myrecipes");
+                }
             }
         }   
+        include("newupload.php");
     }
 
     private function myrecipes(){

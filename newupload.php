@@ -21,7 +21,11 @@
                 <a href="?command=profile">Profile</a>
             </nav>
         </header>
-
+        <?php
+            if (!empty($error_msg)) {
+                echo "<div class='alert alert-danger'>$error_msg</div>";
+            }
+        ?>
         <form action="?command=new" method="post">
             <label for="RecipeName" style = "font-size: 30px; margin-left:20px">Recipe Name:</label>
             <input type="text" id="RecipeName" name="RecipeName" pattern=".{2,}">
