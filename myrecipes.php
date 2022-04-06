@@ -31,13 +31,13 @@
             if (!empty($error_msg)) {
                 echo "<div class='alert alert-danger'>$error_msg</div>";
             }else{
-                echo "<table border='1'>
+                echo "<table border='1px solid black'>
                 <tr>
                 <th>Recipe Name</th>
                 <th>Estimated Time</th>
-                <th>Rating</th>
+                <th>Rating (out of 5)</th>
                 <th>Edit?</th>
-                </tr>";
+                </tr>";                
                 foreach ($data as $item){
                     $rate = $this->db->query("select rating from ratings where recipe_id = ?;", "s", $item["id"]);
                     $count = 0;
