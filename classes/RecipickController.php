@@ -197,7 +197,7 @@ class RecipickController {
             $name = $_SESSION['name'];
             $id = $_SESSION['id'];
 
-            $insert = $this->db->query("UPDATE recipes set RecipeName = $RecipeName, EstimatedTime = $EstimatedTime, Ingredients = $Ingredients, Instructions = $Instructions, Author = $name, user_id = $id where id = $recipe_id;");
+            $insert = $this->db->query("UPDATE recipes set RecipeName = '$RecipeName', EstimatedTime = '$EstimatedTime', Ingredients = '$Ingredients', Instructions = '$Instructions' where id = $recipe_id;");
 
             // $insert = $this->db->query("update recipes set (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?) where id=?;", 
             // "sssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
