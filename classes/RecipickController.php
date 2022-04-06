@@ -80,11 +80,13 @@ class RecipickController {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
         $data = $this->db->query("select id from recipes where user_id = ?;", "s", $_SESSION["id"]);
+        $data_json = json_encode($data);
         $num_recipes = 0;
         foreach ($data as $c) {
             $num_recipes++;
         }
         $data1 = $this->db->query("select rating from ratings where user_id = ?;", "s", $_SESSION["id"]);
+        $data1_json = json_encode($data1);
         $total = 0;
         $count = 0;
         foreach($data1 as $d) {
@@ -108,6 +110,7 @@ class RecipickController {
     private function signup() {
         if (isset($_POST["email"])) {
             $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
+            $data_json = json_encode($data);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             }
@@ -142,6 +145,7 @@ class RecipickController {
     private function login() {
         if (isset($_POST["email"])) {
             $data = $this->db->query("select * from recipick_user where email = ?;", "s", $_POST["email"]);
+            $data_json = json_encode($data);
             if ($data === false) {
                 $error_msg = "Error checking for user";
             }
