@@ -40,10 +40,6 @@
             <br>
             <textarea name="Instructions" id="Instructions" cols="80" rows="10" pattern=".{2,}"></textarea>
             <br>
-            <label for="photo" style = "font-size: 30px; margin-left:20px;">Upload Image:</label>
-            <input type="file"
-                id="photo" name="photo"
-                accept="image/*">
             <button type = "submit" style="margin-left: 130px;">
                 Submit
             </button>
