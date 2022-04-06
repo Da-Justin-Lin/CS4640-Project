@@ -63,13 +63,30 @@ class RecipickController {
     }
 
     private function saved() {
+        $data2 = $this->db->query("select id, RecipeName, EstimatedTime, Author from saved where saved_user = ?;", "s", $_SESSION["id"]);
         include("savedrecipes.php");
     }
 
     private function displayProfile() {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
-        $num_recipes = $_SESSION["num_recipes"];
+        $data = $this->db->query("select id from recipes where user_id = ?;", "s", $_SESSION["id"]);
+        $num_recipes = 0;
+        foreach ($data as $c) {
+            $num_recipes++;
+        }
+        $data1 = $this->db->query("select rating from ratings where user_id = ?;", "s", $_SESSION["id"]);
+        $total = 0;
+        $count = 0;
+        foreach($data1 as $d) {
+            $total += $d["rating"];
+            $count++;
+        }
+        if ($count == 0) {
+            $rate = 0;
+        }else {
+            $rate = $total/$count;
+        }
         include("profile.php");
     }
 
@@ -105,7 +122,6 @@ class RecipickController {
                     $_SESSION["name"] =  $_POST["name"];
                     $_SESSION["email"] =   $_POST["email"];
                     $_SESSION["id"] = $id[0]["id"];
-                    $_SESSION["num_recipes"] = $data[0]["num_recipes"];
                     header("Location: ?command=home");
                 }
             }
@@ -128,7 +144,6 @@ class RecipickController {
                     $_SESSION["name"] =  $data[0]["name"];
                     $_SESSION["email"] =  $data[0]["email"];
                     $_SESSION["id"] = $data[0]["id"];
-                    $_SESSION["num_recipes"] = $data[0]["num_recipes"];
                     header("Location: ?command=home");
                 } else {
                     $error_msg = "Wrong password";
@@ -146,6 +161,7 @@ class RecipickController {
             $insert = $this->db->query("insert into recipes (RecipeName, EstimatedTime, Ingredients, Instructions, Author, user_id) values (?, ?, ?, ?, ?, ?);", 
             "ssssss", $_POST["RecipeName"], $_POST["EstimatedTime"], 
             $_POST["Ingredients"], $_POST["Instructions"], $_SESSION["name"], $_SESSION["id"]);
+            $_SESSION["num_recipes"] += 1;
             if ($insert === false) {
                 $error_msg = "Error submitting recipe";
             } else {

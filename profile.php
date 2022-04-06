@@ -23,7 +23,7 @@
         </header>
         <p>Username: <?=$name?></p>
         <p>Email: <?=$email?></p>
-        <p>Average Ratings: 0</p> 
+        <p>Average Ratings: <?=$rate?></p> 
         <p>Number of Recipes: <?=$num_recipes?> </p>
 
         <button onclick = "location='index.html'" style="margin-left: 20px;">
