@@ -26,8 +26,6 @@
         <p>Average Ratings: <?=$rate?></p> 
         <p>Number of Recipes: <?=$num_recipes?> </p>
 
-        <button onclick = "location='index.html'" style="margin-left: 20px;">
-            Log out
-        </button>
+        <a href="?command=logout">Logout</a>
     </body>
 </html>
