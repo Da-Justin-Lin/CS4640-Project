@@ -15,7 +15,7 @@ class RecipickController {
 
     public function run() {
         if (!isset($_GET['command'])){
-            $this->login();
+            $this->index();
         }else{
         switch($_GET['command']) {
             case "myrecipes":
@@ -56,6 +56,10 @@ class RecipickController {
                 $this->login();
                 break;
         }}
+    }
+
+    private function index(){
+        include("homepage.php");
     }
 
     private function newupload() {
