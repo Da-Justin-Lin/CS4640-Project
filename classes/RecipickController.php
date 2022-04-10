@@ -15,9 +15,12 @@ class RecipickController {
 
     public function run() {
         if (!isset($_GET['command'])){
-            $this->login();
+            $this->index();
         }else{
         switch($_GET['command']) {
+            case "index":
+                $this->index();
+                break;
             case "myrecipes":
                 $this->displayrecipes();
                 break;
@@ -58,13 +61,16 @@ class RecipickController {
         }}
     }
 
+    private function index() {
+        include("homepage.php");
+    }
     private function newupload() {
         include("newupload.php");
     }
     private function logout() {
         session_unset();
         session_destroy();
-        header("Location: ?command=login");
+        header("Location: ?command=index");
     }
 
     private function search() {

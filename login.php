@@ -14,7 +14,9 @@
         <body>
             <header>
                 <nav>
-                    <a href="index.html">Recipick</a>
+                <h1 style = "font-size: 60px;display:inline-block">
+                        Recipick
+                </h1>
                 </nav>
             </header>
             <div class = "flex-container">
