@@ -61,6 +61,7 @@ class RecipickController {
         }}
     }
 
+
     private function index() {
         include("homepage.php");
     }
