@@ -17,20 +17,26 @@
                 <h3>Number of games won:</h3>
                 <h3>Current streak:</h3>
                 <h3>Average number of guesses per game:</h3>
-                <h3>Enter a word:</h3>
+
             </div>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=question" method="post">
-                    <div class="h-100 p-5 bg-light border rounded-3">
-                    </div>
+                    <table id="todos" class="table table-striped">
+                        <tr class="table-dark">
+                            <th style="width: 40%;">Word Guessed</th>
+                            <th style="width: 20%;">Characters Correct</th>
+                            <th style="width: 20%;">Characters in Correct Position</th>
+                            <th style="width: 20%;">Length of Word</th>
+                        </tr>
+                    </table>
                     <div class="h-10 p-5 mb-3">
                         <input type="text" class="form-control" id="answer" name="answer" placeholder="Type your answer here">
                     </div>
-                    <div class="text-center">                
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="?command=gameover" class="btn btn-danger">New Game</a>
-                    <button type="submit" class="btn btn-primary">Clear History</button>
+                    <div class="text-center">
+                    <input type="button" class="btn btn-primary" value="Submit" onclick="addWord();"/>
+                    <input type="button" class="btn btn-primary" value="New Game" onclick="newGame();"/>                   
+                    <input type="button" class="btn btn-primary" value="Clear History" onclick="clear();"/>  
                     </div>
                 </form>
                 </div>
