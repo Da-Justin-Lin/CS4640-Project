@@ -79,6 +79,10 @@
                 guess.value = '';
             }
 
+            function clear() {
+                localStorage.clear();
+                getRandomWord(newGame);
+            }
             function charInTarget(target, guess) {
                 let guess1 = guess.toLowerCase();
                 var targetChar = [];
