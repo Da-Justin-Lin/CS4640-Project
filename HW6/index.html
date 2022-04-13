@@ -39,7 +39,7 @@
                     <div class="text-center">
                     <input type="button" class="btn btn-primary" id = "Submit" value="Submit" onclick="submitWord();" disabled="disabled"/>
                     <input type="button" class="btn btn-primary" value="New Game" onclick="getRandomWord(newGame);"/>                   
-                    <input type="button" class="btn btn-primary" value="Clear History" onclick="clear();"/>  
+                    <input type="button" class="btn btn-primary" value="Clear History" onclick="clearHistory();"/>  
                     </div>
                     <p id = "target"></p>
                 </form>
@@ -71,11 +71,14 @@
                 document.getElementById("streak").innerHTML = "Current streak: "+localStorage.getItem("streak");
                 //console.log(localStorage.getItem("streak"));
                 document.getElementById("numGuess").innerHTML = "Average number of guesses per game: "+localStorage.getItem("numGuess");
-                /*gamePlayed ++;
-                if (!guessed){
-                    streak =0;
+                gamePlayed ++;
+                localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed")) + 1);
+
+                if (localStorage.getItem("guessed") == false){
+                    localStorage.setItem("streak", 0);
+                    document.getElementById("streak").innerHTML = "Streak: "+localStorage.getItem("streak");
                 }
-                guessed = false;*/
+                localStorage.setItem("guessed", false);
             }        
 
             function submitWord() {
@@ -103,13 +106,16 @@
                 if (guess == target){
                     document.getElementById("answer").disabled = true;
                     document.getElementById("Submit").disabled = true;
-                    gameWon ++;
-                    streak ++;
-                    guessed = true;
+                    localStorage.setItem("gameWon", parseInt(localStorage.getItem("gameWon")) + 1);
+                    localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+                    localStorage.setItem("guessed", true);
+                    document.getElementById("streak").innerHTML = "Current Streak: "+localStorage.getItem("streak");
+                    document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
+
                 }
             }
 
-            function clear() {
+            function clearHistory() {
                 localStorage.clear();
                 getRandomWord(newGame);
             }
