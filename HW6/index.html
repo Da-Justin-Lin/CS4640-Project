@@ -69,11 +69,14 @@
                 document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
                 document.getElementById("streak").innerHTML = "Current streak: "+localStorage.getItem("streak");
                 document.getElementById("numGuess").innerHTML = "Average number of guesses per game: "+localStorage.getItem("numGuess");
-                /*gamePlayed ++;
-                if (!guessed){
-                    streak =0;
+                gamePlayed ++;
+                localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed")) + 1);
+
+                if (localStorage.getItem("guessed") == false){
+                    localStorage.setItem("streak", 0);
+                    document.getElementById("streak").innerHTML = "Streak: "+localStorage.getItem("streak");
                 }
-                guessed = false;*/
+                localStorage.setItem("guessed", false);
             }        
 
             function submitWord() {
@@ -101,12 +104,18 @@
                 if (guess == target){
                     document.getElementById("answer").disabled = true;
                     document.getElementById("Submit").disabled = true;
-                    localStorage.setItem("gameWon", parseInt(localStorage.getItem("gameWon"))+1);
+                    localStorage.setItem("gameWon", parseInt(localStorage.getItem("gameWon")) + 1);
+                    localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+                    localStorage.setItem("guessed", true);
+                    document.getElementById("streak").innerHTML = "Current Streak: "+localStorage.getItem("streak");
                     document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
-                    guessed = true;
                 }
             }
 
+            function clearHistory() {
+                localStorage.clear();
+                getRandomWord(newGame);
+            }
             function charInTarget(target, guess) {
                 let guess1 = guess.toLowerCase();
                 var targetChar = [];
