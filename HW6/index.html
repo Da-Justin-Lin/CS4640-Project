@@ -78,6 +78,8 @@
                     localStorage.setItem("guessed", 0);
                     localStorage.setItem("streak", 0);
                     localStorage.setItem("numGuess", 0);
+                }else{
+                    localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed"))+1);
                 }
                 localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed")) + 1);
                 document.getElementById("gamePlayed").innerHTML = "Number of games played: "+localStorage.getItem("gamePlayed");
@@ -185,6 +187,16 @@
                 else {
                     return "Correct length";
                 }
+            }
+
+            function clearHistory(){
+                localStorage.setItem("gamePlayed", 0);
+                localStorage.setItem("gameWon", 0);
+                localStorage.setItem("guessed", false);
+                localStorage.setItem("streak", 0);
+                localStorage.setItem("numGuess", 0);
+                getRandomWord(newGame);
+                console.log(1);
             }
 
         </script>
