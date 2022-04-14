@@ -32,6 +32,7 @@
                         </table>
                         <form>
                             <div class="h-10 p-5 mb-3">
+                                <h3 id="error"></h3>
                                 <input type="text" class="form-control" id="answer" name="answer" placeholder="Type your answer here" disabled="disabled" pattern="[A-Za-z]+" title="Letters only. No numbers or symbols." required>
                             </div>
                             <div class="text-center">
@@ -81,7 +82,6 @@
                 }else{
                     localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed"))+1);
                 }
-                localStorage.setItem("gamePlayed", parseInt(localStorage.getItem("gamePlayed")) + 1);
                 document.getElementById("gamePlayed").innerHTML = "Number of games played: "+localStorage.getItem("gamePlayed");
                 document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
                 //console.log(localStorage.getItem("streak"));
@@ -97,49 +97,47 @@
 
             function submitWord() {
                 var guess = document.getElementById("answer").value;
-                var target = localStorage.getItem("target");
-                var charInTar = charInTarget(target, guess);
-                var charInCor = charInCorrect(target, guess);
-                var len = lenComp(target, guess);
+                if (!/^[a-zA-Z]+$/.test(guess)){
+                    document.getElementById("error").innerHTML = "Invalid input";
+                }
+                else{
+                    document.getElementById("error").innerHTML = "";
+                    var target = localStorage.getItem("target");
+                    var charInTar = charInTarget(target, guess);
+                    var charInCor = charInCorrect(target, guess);
+                    var len = lenComp(target, guess);
 
 
-                var table = document.getElementById("guesses");
-                var newRow = table.insertRow(table.rows.length);
-                var newCell = newRow.insertCell(0);
-                newCell.innerHTML = "<p>"+guess+"</p>";
+                    var table = document.getElementById("guesses");
+                    var newRow = table.insertRow(table.rows.length);
+                    var newCell = newRow.insertCell(0);
+                    newCell.innerHTML = "<p>"+guess+"</p>";
 
-                newCell = newRow.insertCell(1);
-                newCell.innerHTML = "<p>"+charInTar+"</p>";
+                    newCell = newRow.insertCell(1);
+                    newCell.innerHTML = "<p>"+charInTar+"</p>";
 
-                newCell = newRow.insertCell(2);
-                newCell.innerHTML = "<p>"+charInCor+"</p>";
-                newCell = newRow.insertCell(3);
-                newCell.innerHTML = "<p>"+len+"</p>";
+                    newCell = newRow.insertCell(2);
+                    newCell.innerHTML = "<p>"+charInCor+"</p>";
+                    newCell = newRow.insertCell(3);
+                    newCell.innerHTML = "<p>"+len+"</p>";
 
-                document.getElementById("answer").value = "";
-                localStorage.setItem("numGuess", parseInt(localStorage.getItem("numGuess"))+1);
-                document.getElementById("avgGuess").innerHTML = "Average number of guesses per game: "+parseInt(localStorage.getItem("numGuess"))/parseInt(localStorage.getItem("gamePlayed"));
+                    document.getElementById("answer").value = "";
+                    localStorage.setItem("numGuess", parseInt(localStorage.getItem("numGuess"))+1);
+                    document.getElementById("avgGuess").innerHTML = "Average number of guesses per game: "+parseInt(localStorage.getItem("numGuess"))/parseInt(localStorage.getItem("gamePlayed"));
 
-                if (guess.toLowerCase() === target){
-                    document.getElementById("answer").disabled = true;
-                    document.getElementById("Submit").disabled = true;
-                    localStorage.setItem("gameWon", parseInt(localStorage.getItem("gameWon")) + 1);
-                    localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
-                    localStorage.setItem("guessed", 1);
-                    document.getElementById("streak").innerHTML = "Current Streak: "+localStorage.getItem("streak");
-                    document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
+                    if (guess.toLowerCase() === target){
+                        document.getElementById("answer").disabled = true;
+                        document.getElementById("Submit").disabled = true;
+                        localStorage.setItem("gameWon", parseInt(localStorage.getItem("gameWon")) + 1);
+                        localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+                        localStorage.setItem("guessed", 1);
+                        document.getElementById("streak").innerHTML = "Current Streak: "+localStorage.getItem("streak");
+                        document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
+                    }
                 }
             }
+            
 
-               function clearHistory() {
-                localStorage.clear();
-                getRandomWord(newGame);
-                var table = document.getElementById("guesses");
-                var rowCount = table.rows.length;
-                while(table.rows.length > 1) {
-                     table.deleteRow(1);
-                }
-            }
             function charInTarget(target, guess) {
                 let guess1 = guess.toLowerCase();
                 var targetChar = [];
@@ -195,6 +193,15 @@
                 localStorage.setItem("guessed", false);
                 localStorage.setItem("streak", 0);
                 localStorage.setItem("numGuess", 0);
+                var table = document.getElementById("guesses");
+                var rowCount = table.rows.length;
+                while(table.rows.length > 1) {
+                     table.deleteRow(1);
+                }
+                document.getElementById("gamePlayed").innerHTML = "Number of games played: "+localStorage.getItem("gamePlayed");
+                document.getElementById("gameWon").innerHTML = "Number of games won: "+localStorage.getItem("gameWon");
+                document.getElementById("streak").innerHTML = "Current streak: "+localStorage.getItem("streak");
+                document.getElementById("avgGuess").innerHTML = "Average number of guesses per game: "+parseInt(localStorage.getItem("numGuess"))/parseInt(localStorage.getItem("gamePlayed"));
                 document.getElementById("Submit").disabled = true;
                 document.getElementById("answer").value = "";
                 document.getElementById("answer").disabled = true;
