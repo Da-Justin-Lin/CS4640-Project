@@ -54,8 +54,8 @@
             for(var c=0;c<parseInt(col,10);c++){
                 var y=  x.insertCell(c);
                 y.id = count;
+                y.innerHTML='<button id=b' +count +' name="btn";"></button>';
                 count++;
-                y.innerHTML=" ";
             }
         }
 
@@ -75,16 +75,74 @@
             },
             success: function(data) { // in case of success get the output, i named data
                 var lights = JSON.parse(JSON.stringify(data));
-                console.log(Object.keys(lights).length);
                 for (let i = 1; i < Object.keys(lights).length+1; i++) {
                     if (lights[i]){
-                        console.log("a");
                         $('#'+i).css("background-color","gray");
                     }
                 }
             },
         });
     }
+
+    $(document).on("click", "button", function() {
+        var id= $(this).attr("id");
+        var num = parseInt(id.substring(1));
+        var col = parseInt($('#col').val());
+        var row = parseInt($('#row').val());
+        if(num-col > 0) {
+            var c = num-col;
+            var color = $('#'+c).css( "background-color" );
+            if (color == 'rgb(0, 0, 0)'){
+                $('#'+c).css("background-color","gray");
+            }else{
+                $('#'+c).css("background-color","black");
+            }
+        }
+        if(((num-1) % col) > 0) {
+            var c = num-1;
+            var color = $('#'+c).css( "background-color" );
+            if (color == 'rgb(0, 0, 0)'){
+                $('#'+c).css("background-color","gray");
+            }else{
+                $('#'+c).css("background-color","black");
+            }
+        }
+        if((num%col) > 0) {
+            var c = parseInt(num)+1;
+            var color = $('#'+c).css( "background-color" );
+            if (color == 'rgb(0, 0, 0)'){
+                $('#'+c).css("background-color","gray");
+            }else{
+                $('#'+c).css("background-color","black");
+            }
+        }
+        if((num+col) < (row*col)) {
+            var c = num+col;
+            var color = $('#'+c).css( "background-color" );
+            if (color == 'rgb(0, 0, 0)'){
+                $('#'+c).css("background-color","gray");
+            }else{
+                $('#'+c).css("background-color","black");
+            }
+        }
+        var color = $('#'+num).css( "background-color" );
+        if (color == 'rgb(0, 0, 0)'){
+                $('#'+num).css("background-color","gray");
+            }else{
+                $('#'+num).css("background-color","black");
+            }
+
+        var win = true;
+        for (let i =1;i<row*col+1;i++){
+            var color = $('#'+i).css( "background-color" );
+            if (color != 'rgb(0, 0, 0)'){
+                win = false;
+            }
+        }
+        if (win){
+            alert("You've won!");
+        }
+    });
     
 </script>
 </html>
