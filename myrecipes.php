@@ -25,6 +25,7 @@
             </nav>
         </header>
         
+
         <a href="?command=newupload">New Upload</a>
         <!-- <button onclick = "command=newupload" style="margin-left: 10px;">
             Upload New
@@ -45,7 +46,7 @@
                 <th>Estimated Time</th>
                 <th>Rating (out of 5)</th>
                 <th>Edit?</th>
-                </tr>";                
+                </tr>";           
                 foreach ($data as $item){
                     $rate = $this->db->query("select rating from ratings where recipe_id = ?;", "s", $item["id"]);
                     $count = 0;

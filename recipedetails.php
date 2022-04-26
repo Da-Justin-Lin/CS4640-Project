@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/newupload.css">
     </head> 
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous">
+    </script>
     <body>
         <header>
             <nav>
@@ -23,20 +26,83 @@
         </header>
 
         <label for="RecipeName" style = "font-size: 30px">Recipe Name:</label>
-        <input type="text" id="RecipeName" name="RecipeName">
+        <?php echo $recipe["RecipeName"]; ?>
         <label for="estimatedtime" style = "font-size: 20px; margin-left: 50px;">Estimated time:</label>
-        <input type="text" id="estimatedtime" name="estimatedtime">
-        <span style="font-size:300%;color:yellow;">&starf;</span>
+        <?php echo $recipe["EstimatedTime"]; ?>
         <br>
 
         <label for="Text1" style = "font-size: 30px">Ingredients:</label>
+        <?php echo $recipe["Ingredients"]; ?>
         <br>
-        <textarea name="Text1" id="Text1" cols="80" rows="6"></textarea>
         <br>
 
         <label for="Instructions" style = "font-size: 30px">Instructions:</label>
+        <?php echo $recipe["Instructions"]; ?>
         <br>
-        <textarea name="Instructions" id="Instructions" cols="80" rows="10"></textarea>
         <br>
+        <i id="star1" color="green"> <span style="font-size:300%;">&starf;</span> </i>
+        <i id="star2" color="green"> <span style="font-size:300%;">&starf;</span> </i>
+        <i id="star3" color="green"> <span style="font-size:300%;">&starf;</span> </i>
+        <i id="star4" color="green"> <span style="font-size:300%;">&starf;</span> </i>
+        <i id="star5" color="green"> <span style="font-size:300%;">&starf;</span> </i>
+        <form action="?command=submitRating&id=<?=$recipe_id?>" method="post" onsubmit="return pop()">
+            <input id ='rating' name='rating' type="text" hidden>
+            <button type="submit" id="submitRating"> Submit Rating </button>
+        </form>
+        <script type="text/javascript">
+        function pop() {
+            if(document.getElementById('rating').value == 0) {
+                alert("You must rate the recipe before you submit!");
+                return false;
+            }
+            var answer = window.confirm("Submit this rating?");
+            if(answer) {
+                this.form.submit();
+            }
+            else {
+                return false;
+            }
+        }
+
+        $(document).ready(function() {
+            var rate = 0;
+            document.getElementById('rating').value = rate;
+            $("#star1").click(function() {
+                $("#star1").css("color", "green");
+                $("#star2, #star3, #star4, #star5").css("color", "black");
+                rate = 1;
+                document.getElementById('rating').value = rate;
+            });
+            $("#star2").click(function() {
+                $("#star1, #star2").css("color", "green");
+                $("#star3, #star4, #star5").css("color", "black");
+                rate = 2;
+                document.getElementById('rating').value = rate;
+            });
+            $("#star3").click(function() {
+                $("#star1, #star2, #star3").css("color", "green");
+                $("#star4, #star5").css("color", "black");
+                rate = 3;
+                document.getElementById('rating').value = rate;
+            });
+            $("#star4").click(function() {
+                $("#star1, #star2, #star3, #star4").css("color", "green");
+                $("#star5").css("color", "black");
+                rate = 4;
+                document.getElementById('rating').value = rate;
+            });
+            $("#star5").click(function() {
+                $("#star1, #star2, #star3, #star4, #star5").css("color", "green");
+                rate = 5;
+                document.getElementById('rating').value = rate;
+            });
+            $("#submitRating").click(function() {
+                if(rate = 0) {
+                    alert("You must rate the recipe before you submit!");
+                }
+            });
+        });
+        </script>
     </body>
+
 </html>

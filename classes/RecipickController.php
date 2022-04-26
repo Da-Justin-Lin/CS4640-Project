@@ -54,8 +54,16 @@ class RecipickController {
             case "delete":
                 $this->delete();
                 break;
+<<<<<<< Updated upstream
             case "mydetail":
                 $this->mydetail();
+=======
+            case "view":
+                $this->view();
+                break;
+            case "submitRating":
+                $this->submitRating();
+>>>>>>> Stashed changes
                 break;
             case "login":
             default:
@@ -64,6 +72,26 @@ class RecipickController {
         }}
     }
 
+    private function submitRating() {
+        $recipe_id = $_GET['id'];
+        $rate = $_POST['rating'];
+        $data = $this->db->query("select * from ratings where recipe_id = ? AND rater_id = ?;", "ss", $_GET['id'], $_SESSION['id']);
+        if($data == false) {
+            $author = $this->db->query("select user_id from recipes where id = ?;", "s", $_GET['id'])[0]['user_id'];
+            $insert = $this->db->query("insert into ratings (user_id, recipe_id, rating, rater_id ) values (?, ?, ?, ?);", "ssss", $author, $_GET['id'], $rate, $_SESSION['id']); 
+        }
+        else {
+            $insert = $this->db->query("UPDATE ratings set rating = '$rate' where recipe_id = ? and rater_id = ?;" ,"ss", $_GET['id'], $_SESSION['id']);
+        }
+        header("Location: ?command=view&id=".$recipe_id);
+    }
+
+    private function view() {
+        $recipe_id = $_GET['id'];
+        $recipe = $this->db->query("select * from recipes where id = ?;", "s", $recipe_id)[0];
+        //header("Location: ?command=search");
+        include("recipedetails.php");
+    }
 
     private function index() {
         include("homepage.php");
@@ -78,6 +106,10 @@ class RecipickController {
     }
 
     private function search() {
+        $listRecipe = []; 
+        if(isset($_POST["recipename"])) {
+            $listRecipe = $this->db->query("select id, RecipeName, EstimatedTime, Author from recipes where RecipeName = ? AND user_id != ?;", "ss", $_POST["recipename"], $_SESSION["id"]);
+        }
         include("search.php");
     }
 
