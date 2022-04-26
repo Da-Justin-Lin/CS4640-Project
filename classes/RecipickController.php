@@ -54,16 +54,14 @@ class RecipickController {
             case "delete":
                 $this->delete();
                 break;
-<<<<<<< Updated upstream
-            case "mydetail":
-                $this->mydetail();
-=======
             case "view":
                 $this->view();
                 break;
             case "submitRating":
                 $this->submitRating();
->>>>>>> Stashed changes
+                break;
+            case "mydetail":
+                $this->mydetail();
                 break;
             case "login":
             default:

@@ -33,12 +33,8 @@
             <br>
             <label for="fav"> Only search favorites?</label>
             <input type="checkbox" id="fav" name="fav" value="Favorite">
-<<<<<<< Updated upstream
-            <input type="button" class="btn btn-primary" value="New Game" onclick="passVal();"/>
-=======
             <button type="submit" style="margin-left: 340px;">Search</button> 
         </form>
->>>>>>> Stashed changes
         </div>
         <br>
         <br>
