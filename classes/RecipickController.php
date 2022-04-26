@@ -54,6 +54,9 @@ class RecipickController {
             case "delete":
                 $this->delete();
                 break;
+            case "mydetail":
+                $this->mydetail();
+                break;
             case "login":
             default:
                 $this->login();
@@ -87,7 +90,6 @@ class RecipickController {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
         $data = $this->db->query("select id from recipes where user_id = ?;", "s", $_SESSION["id"]);
-        $data_json = json_encode($data);
         $num_recipes = 0;
         foreach ($data as $c) {
             $num_recipes++;
@@ -105,6 +107,8 @@ class RecipickController {
         }else {
             $rate = $total/$count;
         }
+        $profile = ['name'=>$name, 'email'=>$email, 'rate'=>$rate, 'num_recipes'=>$num_recipes];
+        $profile_json = json_encode($data);
         include("profile.php");
     }
 
@@ -231,5 +235,13 @@ class RecipickController {
 
     private function home(){
         include("home.php");
+    }
+
+    private function mydetail(){
+        $id  = $_POST['id'];
+        $recipe = $this->db->query("select * from recipes where id = ?;", "s", $id)[0];
+        header("Content-type: application/json");
+        $recipe_json = json_encode($recipe);
+        echo $recipe_json;
     }
 }

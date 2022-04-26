@@ -48,10 +48,21 @@
                 Submit
             </button>
         </form>
-        <form action="?command=delete&id=<?=$recipe_id?>" method = "post">
-            <button type = "submit" style="margin-left: 10px; background-color: rgb(255, 166, 166);">
+        <form action="?command=delete&id=<?=$recipe_id?>" method = "post" onsubmit="return pop()">
+            <button type = "submit" id="delete" style="margin-left: 10px; background-color: rgb(255, 166, 166);" >
                 Delete
             </button>
         </form>
     </body>
+    <script type="text/javascript">
+            function pop(){
+                var answer = window.confirm("Delete recipe?");
+                if (answer) {
+                    this.form.submit();
+                }
+                else {
+                    return false;
+                }
+                            }
+    </script>
 </html>

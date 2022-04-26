@@ -11,6 +11,9 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/search.css">
     </head> 
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous">
+</script>
     <body>
         <header>
             <nav>
@@ -27,6 +30,11 @@
             Upload New
         </button> -->
         <br>
+        <p id="RecipeName"></p>
+        <p id="Author"></p>
+        <p id="EstimatedTime"></p>
+        <p id="Ingredients"></p>
+        <p id="Instructions"></p>
         <?php
             if (!empty($error_msg)) {
                 echo "<div class='alert alert-danger'>$error_msg</div>";
@@ -53,7 +61,7 @@
                     }
                     $id = $item['id'];
                     echo "<tr>";
-                    echo "<td style='text-align:center;'>" . $item["RecipeName"] . "</td>";
+                    echo "<td id=$id style='text-align:center;' onclick='detail($id)'>" . $item["RecipeName"] . "</td>";
                     echo "<td style='text-align:center;'>" . $item["EstimatedTime"] . "</td>";
                     echo "<td style='text-align:center;'>" . $rate . "</td>";
                     echo "<td style='text-align:center;'>" .  "<a href='?command=edit&id=$id'>Edit</a>" . "</td>";
@@ -63,3 +71,27 @@
             }
         ?>
     </body>
+
+    <script type="text/javascript">
+        function detail(id){
+            $.ajax({
+            type: 'post', // the method (could be GET btw)
+            url: '?command=mydetail', // The file where my php code is
+            data: {
+                'id': id
+            },
+            success: function(data) { // in case of success get the output, i named data
+                var recipe = JSON.parse(JSON.stringify(data));
+                document.getElementById('RecipeName').innerHTML = "Recipe Name: "+recipe['RecipeName'];
+                document.getElementById('Author').innerHTML = "Author: "+recipe['Author'];
+                document.getElementById('EstimatedTime').innerHTML = "Estimated Time: "+recipe['EstimatedTime'];
+                document.getElementById('Ingredients').innerHTML = "Ingredients: "+recipe['Ingredients'];
+                document.getElementById('Instructions').innerHTML = "Instructions: "+recipe['Instructions'];
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            },
+        });
+        }
+    </script>

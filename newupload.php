@@ -31,6 +31,7 @@
             <input type="text" id="RecipeName" name="RecipeName" pattern=".{2,}">
             <label for="EstimatedTime" style = "font-size: 30px; margin-left: 50px;">Estimated time:</label>
             <input type="text" id="EstimatedTime" name="EstimatedTime" pattern=".{2,}">
+            <p id="pwhelp" class="form-text" style = "color:red"></p>
             <br>
             <label for="Ingredients" style = "font-size: 30px; margin-left:20px;">Ingredients:</label>
             <br>
@@ -40,9 +41,33 @@
             <br>
             <textarea name="Instructions" id="Instructions" cols="80" rows="10" pattern=".{2,}"></textarea>
             <br>
-            <button type = "submit" style="margin-left: 130px;">
+            <button id="submit" name="submit" type = "submit" style="margin-left: 130px;">
                 Submit
             </button>
         </form>
     </body>
+
+    <script type="text/javascript">
+            document.getElementById("EstimatedTime").addEventListener("keyup", function() {
+                var estimate= document.getElementById("EstimatedTime");
+                var submit = document.getElementById("submit");
+                var pwhelp = document.getElementById("pwhelp");
+                var estimateval = estimate.value;
+
+                if (!checktime(estimateval)) {
+                    estimate.classList.add("is-invalid");
+                    submit.disabled = true;
+                    pwhelp.textContent = "Please enter a valid time with number and minutes, hours, etc.";
+                } else {
+                    estimate.classList.remove("is-invalid");
+                    submit.disabled = false;
+                    pwhelp.textContent = "";
+                }
+            });
+
+            let checktime = (time) =>{
+                var re = /([0-9]+(\s)?(sec|second|seconds|min|minute|minutes|hr|hour|hours|day|days))+/i;
+                return re.test(time);
+            };
+    </script>
 </html>

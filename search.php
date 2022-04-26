@@ -32,7 +32,7 @@
             <br>
             <label for="fav"> Only search favorites?</label>
             <input type="checkbox" id="fav" name="fav" value="Favorite">
-            <button style="margin-left: 340px;">Search</button> 
+            <input type="button" class="btn btn-primary" value="New Game" onclick="passVal();"/>
         </div>
         <br>
         <br>
