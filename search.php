@@ -17,7 +17,6 @@
             <nav>
                 <a href="?command=home">Recipick</a>
                 <a href="?command=search">Search</a>
-                <a href="?command=saved">Saved Recipes</a>
                 <a href="?command=myrecipes">My Recipes</a>
                 <a href="?command=profile">Profile</a>
             </nav>
@@ -27,13 +26,12 @@
             <br>
             <input type="text" id="recipename" name ="recipename" placeholder="Enter recipe name">
             <br>
-            <label for="recipeingredients"> Search Recipes by Ingredients (seperate ingredients with semicolons):</label>
+            <label for="recipeingredients"> Search Recipes by Ingredients:</label>
             <br>
             <input type="text" id="recipeingredients" name ="recipeingredients" placeholder="Enter available ingredients">
             <br>
-            <label for="fav"> Only search favorites?</label>
-            <input type="checkbox" id="fav" name="fav" value="Favorite">
-            <button type="submit" style="margin-left: 340px;">Search</button> 
+            <button type="submit"> Search</button>
+            <br>
         </form>
         </div>
         <br>
@@ -57,7 +55,7 @@
                     echo "No search results match your query";
                 }
                 else {
-                    echo "<table border='1px solid black'>
+                    echo "<table style='width:100%'>
                     <tr>
                     <th>Recipe Name</th>
                     <th>Estimated Time</th>

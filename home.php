@@ -16,7 +16,6 @@
                 <nav>
                     <a href="?command=home">Recipick</a>
                     <a href="?command=search">Search</a>
-                    <a href="?command=saved">Saved Recipes</a>
                     <a href="?command=myrecipes">My Recipes</a>
                     <a href="?command=profile">Profile</a>
                 </nav>

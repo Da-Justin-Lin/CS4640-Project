@@ -4,3 +4,33 @@ p {
     font-weight: bold;
     margin-bottom: 20px;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+[class*="col-"] {
+    float: left;
+    border: 1px solid darkgray;
+    width: 100%; /* mobile first - 100% width */
+}
+
+
+/* For large enough screens, use 12-column grid */
+@media only screen and (min-width: 768px) {
+    .row {
+        width: 100%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+
+    .col-8 {
+        width: 66.66%;
+    }
+
+    .col-4 {
+        width: 33.33%;
+    }
+}
